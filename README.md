@@ -44,11 +44,13 @@ A comprehensive Django web application for managing a professional training scho
 ## Technology Stack
 
 - **Backend**: Django 5.2.7
+- **API**: Django REST Framework (DRF) with JWT Authentication
 - **Database**: SQLite (development), PostgreSQL (production ready)
-- **Frontend**: Bootstrap 5, HTML5, CSS3, JavaScript
-- **Authentication**: Django's built-in authentication with custom user model
+- **Frontend**: Tailwind CSS, HTML5, CSS3, JavaScript
+- **Authentication**: Django's built-in authentication with custom user model + JWT tokens
 - **Admin Interface**: Django Admin with custom configurations
-- **Forms**: Django Crispy Forms with Bootstrap 5 styling
+- **Forms**: Django Crispy Forms with Tailwind CSS styling
+- **CORS**: django-cors-headers for cross-origin requests
 
 ## Installation
 
@@ -73,7 +75,12 @@ A comprehensive Django web application for managing a professional training scho
 
 3. **Install dependencies**
    ```bash
-   pip install django djangorestframework pillow python-decouple django-crispy-forms crispy-bootstrap5
+   pip install -r requirements.txt
+   ```
+   
+   Or install manually:
+   ```bash
+   pip install django djangorestframework djangorestframework-simplejwt django-cors-headers pillow python-decouple django-crispy-forms crispy-bootstrap5 django-widget-tweaks
    ```
 
 4. **Run migrations**
@@ -87,15 +94,244 @@ A comprehensive Django web application for managing a professional training scho
    python manage.py createsuperuser
    ```
 
-6. **Run development server**
+6. **Populate sample data (optional)**
+   ```bash
+   python manage.py populate_categories
+   ```
+
+7. **Run development server**
    ```bash
    python manage.py runserver
    ```
 
-7. **Access the application**
+8. **Access the application**
    - Main site: http://127.0.0.1:8000/
    - Admin panel: http://127.0.0.1:8000/admin/
-   - Default admin credentials: admin / admin123
+   - API Documentation: http://127.0.0.1:8000/api/docs/
+   - API Root: http://127.0.0.1:8000/api/
+
+## Django REST Framework (DRF) API
+
+### API Overview
+
+The application provides a comprehensive REST API built with Django REST Framework, featuring JWT authentication and role-based permissions.
+
+### API Endpoints
+
+#### Authentication Endpoints
+- `POST /api/token/` - Obtain JWT access token
+- `POST /api/token/refresh/` - Refresh JWT access token
+
+#### User Management
+- `GET /api/accounts/users/` - List all users (admin only)
+- `POST /api/accounts/users/` - Create new user
+- `GET /api/accounts/users/{id}/` - Get user details
+- `PUT /api/accounts/users/{id}/` - Update user
+- `DELETE /api/accounts/users/{id}/` - Delete user
+
+#### Course Management
+- `GET /api/courses/courses/` - List all courses
+- `POST /api/courses/courses/` - Create course (instructor/admin)
+- `GET /api/courses/courses/{id}/` - Get course details
+- `PUT /api/courses/courses/{id}/` - Update course
+- `DELETE /api/courses/courses/{id}/` - Delete course
+- `GET /api/courses/categories/` - List course categories
+
+#### Student Management
+- `GET /api/students/students/` - List students (admin/instructor)
+- `POST /api/students/students/` - Create student profile
+- `GET /api/students/students/{id}/` - Get student details
+- `PUT /api/students/students/{id}/` - Update student
+- `GET /api/students/enrollments/` - List enrollments
+
+#### Employer Management
+- `GET /api/employers/employers/` - List employers (admin)
+- `POST /api/employers/employers/` - Create employer profile
+- `GET /api/employers/employers/{id}/` - Get employer details
+- `GET /api/employers/jobs/` - List job postings
+
+#### Financial Management
+- `GET /api/financials/payments/` - List payments (admin)
+- `POST /api/financials/payments/` - Create payment record
+- `GET /api/financials/reports/` - Financial reports (admin)
+
+### Authentication
+
+The API uses JWT (JSON Web Token) authentication. To access protected endpoints:
+
+1. **Obtain Access Token**
+   ```bash
+   curl -X POST http://127.0.0.1:8000/api/token/ \
+     -H "Content-Type: application/json" \
+     -d '{"email": "your-email@example.com", "password": "your-password"}'
+   ```
+
+2. **Use Token in Requests**
+   ```bash
+   curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+     http://127.0.0.1:8000/api/courses/courses/
+   ```
+
+3. **Refresh Token**
+   ```bash
+   curl -X POST http://127.0.0.1:8000/api/token/refresh/ \
+     -H "Content-Type: application/json" \
+     -d '{"refresh": "YOUR_REFRESH_TOKEN"}'
+   ```
+
+### API Usage Examples
+
+#### Get All Courses (Public)
+```bash
+curl http://127.0.0.1:8000/api/courses/courses/
+```
+
+#### Create a New Course (Authenticated)
+```bash
+curl -X POST http://127.0.0.1:8000/api/courses/courses/ \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Advanced Cleaning Techniques",
+    "description": "Learn advanced cleaning methods",
+    "difficulty_level": "intermediate",
+    "duration_weeks": 4,
+    "total_hours": 40,
+    "tuition_fee": "300.00",
+    "status": "active"
+  }'
+```
+
+#### Get Student Details
+```bash
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  http://127.0.0.1:8000/api/students/students/1/
+```
+
+#### List Job Postings
+```bash
+curl http://127.0.0.1:8000/api/employers/jobs/
+```
+
+### API Response Format
+
+All API responses follow a consistent format:
+
+#### Success Response
+```json
+{
+  "count": 10,
+  "next": "http://127.0.0.1:8000/api/courses/courses/?page=2",
+  "previous": null,
+  "results": [
+    {
+      "id": 1,
+      "title": "Course Title",
+      "description": "Course description",
+      "difficulty_level": "beginner",
+      "duration_weeks": 4,
+      "total_hours": 40,
+      "tuition_fee": "250.00",
+      "status": "active",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+#### Error Response
+```json
+{
+  "error": "Authentication credentials were not provided.",
+  "detail": "Authentication credentials were not provided."
+}
+```
+
+### Rate Limiting
+
+- **Anonymous users**: 100 requests per hour
+- **Authenticated users**: 1000 requests per hour
+- **Admin users**: Unlimited requests
+
+### CORS Configuration
+
+The API supports cross-origin requests from:
+- `http://localhost:3000` (React development)
+- `http://127.0.0.1:3000`
+- `http://localhost:8080` (Vue development)
+- `http://127.0.0.1:8080`
+
+### Testing the API
+
+#### Using curl
+```bash
+# Test authentication
+curl -X POST http://127.0.0.1:8000/api/token/ \
+  -H "Content-Type: application/json" \
+  -d '{"email": "admin@example.com", "password": "admin123"}'
+
+# Test protected endpoint
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  http://127.0.0.1:8000/api/courses/courses/
+```
+
+#### Using Python requests
+```python
+import requests
+
+# Get token
+response = requests.post('http://127.0.0.1:8000/api/token/', json={
+    'email': 'admin@example.com',
+    'password': 'admin123'
+})
+token = response.json()['access']
+
+# Use token
+headers = {'Authorization': f'Bearer {token}'}
+courses = requests.get('http://127.0.0.1:8000/api/courses/courses/', headers=headers)
+print(courses.json())
+```
+
+#### Using JavaScript/Fetch
+```javascript
+// Get token
+const tokenResponse = await fetch('http://127.0.0.1:8000/api/token/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    email: 'admin@example.com',
+    password: 'admin123'
+  })
+});
+const { access } = await tokenResponse.json();
+
+// Use token
+const coursesResponse = await fetch('http://127.0.0.1:8000/api/courses/courses/', {
+  headers: {
+    'Authorization': `Bearer ${access}`
+  }
+});
+const courses = await coursesResponse.json();
+```
+
+### API Documentation
+
+Interactive API documentation is available at:
+- **Swagger UI**: http://127.0.0.1:8000/api/docs/
+- **ReDoc**: http://127.0.0.1:8000/api/docs/redoc/
+
+### Error Handling
+
+The API returns appropriate HTTP status codes:
+- `200` - Success
+- `201` - Created
+- `400` - Bad Request
+- `401` - Unauthorized
+- `403` - Forbidden
+- `404` - Not Found
+- `500` - Internal Server Error
 
 ## User Types
 
@@ -143,7 +379,9 @@ A comprehensive Django web application for managing a professional training scho
 
 ## API Endpoints
 
-The system includes REST API endpoints for:
+The system includes comprehensive REST API endpoints built with Django REST Framework. See the [Django REST Framework (DRF) API](#django-rest-framework-drf-api) section above for detailed documentation, authentication, and usage examples.
+
+Key API areas include:
 - User authentication and management
 - Course enrollment and progress
 - Job posting and applications
