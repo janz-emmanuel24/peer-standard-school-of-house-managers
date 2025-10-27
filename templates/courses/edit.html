@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Course - {{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center">
+                <a href="{% url 'courses:detail' course.id %}" class="text-primary-200 hover:text-white mr-4">
+                    <i class="fas fa-arrow-left text-xl"></i>
+                </a>
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">Edit Course</h1>
+                    <p class="text-xl text-primary-100">{{ course.title }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Course Edit Form -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <form method="post" enctype="multipart/form-data" class="space-y-8">
+                {% csrf_token %}
+                
+                <!-- Basic Information Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-info-circle text-primary-600 mr-2"></i>
+                        Basic Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2">
+                            <label for="title" class="block text-sm font-medium text-gray-700 mb-2">Course Title *</label>
+                            <input type="text" name="title" id="title" required value="{{ course.title }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                   placeholder="Enter course title">
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label for="description" class="block text-sm font-medium text-gray-700 mb-2">Course Description *</label>
+                            <textarea name="description" id="description" rows="4" required
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                      placeholder="Describe what students will learn in this course">{{ course.description }}</textarea>
+                        </div>
+                        
+                        <div>
+                            <label for="category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                            <select name="category" id="category" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">Select Category</option>
+                                {% for category in categories %}
+                                <option value="{{ category.id }}" {% if course.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="difficulty_level" class="block text-sm font-medium text-gray-700 mb-2">Difficulty Level *</label>
+                            <select name="difficulty_level" id="difficulty_level" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value="">Select Level</option>
+                                <option value="beginner" {% if course.difficulty_level == 'beginner' %}selected{% endif %}>Beginner</option>
+                                <option value="intermediate" {% if course.difficulty_level == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                                <option value="advanced" {% if course.difficulty_level == 'advanced' %}selected{% endif %}>Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Details Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-clock text-primary-600 mr-2"></i>
+                        Course Details
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="duration_weeks" class="block text-sm font-medium text-gray-700 mb-2">Duration (Weeks) *</label>
+                            <input type="number" name="duration_weeks" id="duration_weeks" required min="1" max="52" value="{{ course.duration_weeks }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                   placeholder="e.g., 4">
+                        </div>
+                        
+                        <div>
+                            <label for="total_hours" class="block text-sm font-medium text-gray-700 mb-2">Total Hours *</label>
+                            <input type="number" name="total_hours" id="total_hours" required min="1" value="{{ course.total_hours }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                   placeholder="e.g., 40">
+                        </div>
+                        
+                        <div>
+                            <label for="max_students" class="block text-sm font-medium text-gray-700 mb-2">Max Students</label>
+                            <input type="number" name="max_students" id="max_students" min="1" value="{{ course.max_students }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                   placeholder="e.g., 30">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-dollar-sign text-primary-600 mr-2"></i>
+                        Pricing & Status
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="tuition_fee" class="block text-sm font-medium text-gray-700 mb-2">Tuition Fee *</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                <input type="number" name="tuition_fee" id="tuition_fee" required min="0" step="0.01" value="{{ course.tuition_fee }}"
+                                       class="w-full pl-7 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                       placeholder="0.00">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status *</label>
+                            <select name="status" id="status" required
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <option value="draft" {% if course.status == 'draft' %}selected{% endif %}>Draft</option>
+                                <option value="active" {% if course.status == 'active' %}selected{% endif %}>Active</option>
+                                <option value="retired" {% if course.status == 'retired' %}selected{% endif %}>Retired</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Outcomes Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-target text-primary-600 mr-2"></i>
+                        Learning Outcomes
+                    </h3>
+                    <div>
+                        <label for="learning_outcomes" class="block text-sm font-medium text-gray-700 mb-2">What will students learn? *</label>
+                        <textarea name="learning_outcomes" id="learning_outcomes" rows="4" required
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                  placeholder="List the key learning outcomes and skills students will gain">{{ course.learning_outcomes }}</textarea>
+                        <p class="text-sm text-gray-500 mt-1">Be specific about the skills and knowledge students will acquire.</p>
+                    </div>
+                </div>
+
+                <!-- Course Materials Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-file-upload text-primary-600 mr-2"></i>
+                        Course Materials
+                    </h3>
+                    <div>
+                        {% if course.course_materials %}
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Current Materials</label>
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                                <i class="fas fa-file text-gray-500 mr-3"></i>
+                                <span class="text-sm text-gray-700">{{ course.course_materials.name|default:"No file" }}</span>
+                                <a href="{{ course.course_materials.url }}" target="_blank" class="ml-auto text-primary-600 hover:text-primary-700">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <label for="course_materials" class="block text-sm font-medium text-gray-700 mb-2">Upload New Course Materials</label>
+                        <input type="file" name="course_materials" id="course_materials" multiple
+                               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                               accept=".pdf,.doc,.docx,.ppt,.pptx,.txt">
+                        <p class="text-sm text-gray-500 mt-1">Upload PDFs, documents, presentations, or other course materials.</p>
+                    </div>
+                </div>
+
+                <!-- Prerequisites Section -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-list-check text-primary-600 mr-2"></i>
+                        Prerequisites
+                    </h3>
+                    <div>
+                        <label for="prerequisites" class="block text-sm font-medium text-gray-700 mb-2">Required Prerequisites</label>
+                        <textarea name="prerequisites" id="prerequisites" rows="3"
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                                  placeholder="List any prerequisites or prior knowledge required">{{ course.prerequisites_text|default:"" }}</textarea>
+                        <p class="text-sm text-gray-500 mt-1">Describe any prior courses, skills, or knowledge students should have.</p>
+                    </div>
+                </div>
+
+                <!-- Course Statistics -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">
+                        <i class="fas fa-chart-bar text-primary-600 mr-2"></i>
+                        Course Statistics
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-primary-600 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">Total Enrollments</p>
+                                    <p class="text-2xl font-bold text-gray-900">{{ course.enrollments.count }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-graduation-cap text-green-600 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">Completed</p>
+                                    <p class="text-2xl font-bold text-gray-900">{{ course.enrollments.filter.status='completed'|length }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar text-blue-600 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">Created</p>
+                                    <p class="text-2xl font-bold text-gray-900">{{ course.created_at|date:"M d, Y" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                    <button type="submit" class="flex-1 bg-primary-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                        <i class="fas fa-save mr-2"></i>Update Course
+                    </button>
+                    <a href="{% url 'courses:detail' course.id %}" class="flex-1 bg-gray-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-200 text-center">
+                        <i class="fas fa-times mr-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-calculate total hours based on duration weeks
+    const durationWeeksInput = document.getElementById('duration_weeks');
+    const totalHoursInput = document.getElementById('total_hours');
+    
+    durationWeeksInput.addEventListener('input', function() {
+        const weeks = parseInt(this.value);
+        if (weeks && !totalHoursInput.value) {
+            // Suggest hours based on typical course structure (10-15 hours per week)
+            const suggestedHours = weeks * 12;
+            totalHoursInput.placeholder = `Suggested: ${suggestedHours} hours`;
+        }
+    });
+    
+    // Form validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+        
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('border-red-500');
+                isValid = false;
+            } else {
+                field.classList.remove('border-red-500');
+            }
+        });
+        
+        if (!isValid) {
+            e.preventDefault();
+            alert('Please fill in all required fields.');
+        }
+    });
+});
+</script>
+{% endblock %}

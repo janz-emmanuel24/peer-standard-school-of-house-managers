@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Course Categories - Peer Standard School of Maids{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Course Categories</h1>
+                <p class="text-xl text-primary-100 max-w-3xl mx-auto">
+                    Explore our comprehensive training programs organized by specialization
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Categories Grid -->
+        {% if categories %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for category in categories %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <!-- Category Header -->
+                <div class="h-32 bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        {% if category.name == "Cleaning & Maintenance" %}
+                            <i class="fas fa-broom text-4xl mb-2"></i>
+                        {% elif category.name == "Cooking & Nutrition" %}
+                            <i class="fas fa-utensils text-4xl mb-2"></i>
+                        {% elif category.name == "Childcare & Safety" %}
+                            <i class="fas fa-baby text-4xl mb-2"></i>
+                        {% elif category.name == "Elderly Care" %}
+                            <i class="fas fa-wheelchair text-4xl mb-2"></i>
+                        {% elif category.name == "Housekeeping Management" %}
+                            <i class="fas fa-home text-4xl mb-2"></i>
+                        {% elif category.name == "Communication Skills" %}
+                            <i class="fas fa-comments text-4xl mb-2"></i>
+                        {% else %}
+                            <i class="fas fa-graduation-cap text-4xl mb-2"></i>
+                        {% endif %}
+                        <h3 class="text-xl font-bold">{{ category.name }}</h3>
+                    </div>
+                </div>
+                
+                <!-- Category Content -->
+                <div class="p-6">
+                    <!-- Description -->
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ category.description|default:"Professional training in this specialized area." }}</p>
+                    
+                    <!-- Course Count -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-book text-primary-600 mr-2"></i>
+                            <span class="text-sm text-gray-600">{{ category.courses.count }} Course{{ category.courses.count|pluralize }}</span>
+                        </div>
+                        <span class="text-xs text-gray-500">
+                            Created {{ category.created_at|date:"M Y" }}
+                        </span>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3">
+                        <a href="{% url 'courses:list' %}?category={{ category.id }}" 
+                           class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-primary-700 transition-colors duration-200">
+                            View Courses
+                        </a>
+                        <a href="{% url 'courses:list' %}" 
+                           class="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-gray-700 transition-colors duration-200">
+                            All Courses
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- No Categories Message -->
+        <div class="text-center py-16">
+            <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <i class="fas fa-folder text-gray-400 text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">No Categories Available</h3>
+            <p class="text-gray-600 mb-8">We're currently organizing our course categories.</p>
+            <a href="{% url 'courses:list' %}" class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                View All Courses
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Featured Courses Section -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Popular Courses</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our most popular training programs across all categories
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Sample Popular Courses -->
+                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-broom text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Advanced Cleaning</h3>
+                    <p class="text-sm text-gray-600">Professional cleaning techniques</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-utensils text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Cooking & Nutrition</h3>
+                    <p class="text-sm text-gray-600">Healthy meal preparation</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-baby text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Childcare Safety</h3>
+                    <p class="text-sm text-gray-600">Child safety and care</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-comments text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-2">Communication</h3>
+                    <p class="text-sm text-gray-600">Professional communication</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="bg-primary-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Training Excellence</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive training programs designed for professional success
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Expert Instructors</h3>
+                    <p class="text-gray-600">Learn from industry professionals with years of experience</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-certificate text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Industry Certification</h3>
+                    <p class="text-gray-600">Earn recognized certificates that boost your career prospects</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-hands-helping text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Hands-On Training</h3>
+                    <p class="text-gray-600">Practical experience with real-world scenarios and equipment</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-briefcase text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Job Placement</h3>
+                    <p class="text-gray-600">Direct connections with employers seeking qualified professionals</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="bg-primary-600 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-6">Ready to Start Your Training?</h2>
+            <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+                Choose from our comprehensive course categories and begin your journey to professional success
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if user.is_authenticated %}
+                    {% if user.user_type == 'student' %}
+                        <a href="{% url 'courses:list' %}" class="bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+                            Browse Courses
+                        </a>
+                        <a href="{% url 'students:my_courses' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                            My Courses
+                        </a>
+                    {% else %}
+                        <a href="{% url 'courses:list' %}" class="bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+                            View All Courses
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'accounts:register' %}" class="bg-white text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+                        Register Now
+                    </a>
+                    <a href="{% url 'accounts:login' %}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-600 transition-colors duration-200">
+                        Sign In
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

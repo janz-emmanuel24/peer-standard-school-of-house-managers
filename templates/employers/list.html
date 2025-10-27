@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Employers - Peer Standard School of Maids{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Partner Employers</h1>
+                <p class="text-xl text-primary-100 max-w-3xl mx-auto">
+                    Connect with verified employers who trust our graduates for their domestic service needs
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employers Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Filter Section -->
+        <div class="mb-12">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button class="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                    All Employers
+                </button>
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    Individual
+                </button>
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    Family
+                </button>
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    Company
+                </button>
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    Agency
+                </button>
+            </div>
+        </div>
+
+        <!-- Employers Grid -->
+        {% if employers %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for employer in employers %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <!-- Employer Header -->
+                <div class="h-32 bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <i class="fas fa-building text-4xl mb-2"></i>
+                        <p class="text-sm font-medium">{{ employer.get_company_type_display }}</p>
+                    </div>
+                </div>
+                
+                <!-- Employer Content -->
+                <div class="p-6">
+                    <!-- Company Name -->
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ employer.company_name }}</h3>
+                    
+                    <!-- Contact Person -->
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-user text-primary-600 mr-2"></i>
+                        <span class="text-gray-600">{{ employer.contact_person }}</span>
+                    </div>
+                    
+                    <!-- Location -->
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-map-marker-alt text-primary-600 mr-2"></i>
+                        <span class="text-gray-600">{{ employer.company_address|truncatewords:8 }}</span>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-primary-600 mr-2"></i>
+                            <span class="text-gray-600 text-sm">{{ employer.contact_phone }}</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-primary-600 mr-2"></i>
+                            <span class="text-gray-600 text-sm">{{ employer.contact_email }}</span>
+                        </div>
+                        {% if employer.website %}
+                        <div class="flex items-center">
+                            <i class="fas fa-globe text-primary-600 mr-2"></i>
+                            <a href="{{ employer.website }}" target="_blank" class="text-primary-600 hover:text-primary-700 text-sm">
+                                Visit Website
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Business Description -->
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-3">{{ employer.business_description|truncatewords:20 }}</p>
+                    
+                    <!-- Verification Status -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            {% if employer.is_verified %}
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                <span class="text-green-600 text-sm font-medium">Verified</span>
+                            {% else %}
+                                <i class="fas fa-clock text-yellow-500 mr-2"></i>
+                                <span class="text-yellow-600 text-sm font-medium">Pending Verification</span>
+                            {% endif %}
+                        </div>
+                        <span class="text-xs text-gray-500">
+                            Joined {{ employer.registration_date|date:"M Y" }}
+                        </span>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3">
+                        <a href="{% url 'employers:detail' employer.id %}" 
+                           class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-primary-700 transition-colors duration-200">
+                            View Details
+                        </a>
+                        <a href="{% url 'employers:jobs' %}" 
+                           class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-green-700 transition-colors duration-200">
+                            View Jobs
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- No Employers Message -->
+        <div class="text-center py-16">
+            <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <i class="fas fa-building text-gray-400 text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">No Employers Available</h3>
+            <p class="text-gray-600 mb-8">We're currently working with employers to bring you the best opportunities.</p>
+            <a href="{% url 'home' %}" class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                Back to Home
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Employers Choose Us</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our verified employers trust our graduates for their professional domestic service needs
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Verified & Trusted</h3>
+                    <p class="text-gray-600">All employers undergo thorough verification and background checks</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Certified Graduates</h3>
+                    <p class="text-gray-600">Access to professionally trained and certified domestic service providers</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-handshake text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Ongoing Support</h3>
+                    <p class="text-gray-600">Continuous support and feedback system for successful placements</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="bg-primary-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Ready to Find Your Next Opportunity?</h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Browse job postings from our verified employers and start your career in domestic services
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if user.is_authenticated %}
+                    {% if user.user_type == 'student' %}
+                        <a href="{% url 'employers:jobs' %}" class="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                            Browse Jobs
+                        </a>
+                        <a href="{% url 'dashboard:home' %}" class="border-2 border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                            Go to Dashboard
+                        </a>
+                    {% elif user.user_type == 'employer' %}
+                        <a href="{% url 'employers:post_job' %}" class="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                            Post a Job
+                        </a>
+                        <a href="{% url 'employers:my_jobs' %}" class="border-2 border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                            My Jobs
+                        </a>
+                    {% else %}
+                        <a href="{% url 'dashboard:home' %}" class="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                            Go to Dashboard
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'accounts:register' %}" class="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                        Register Now
+                    </a>
+                    <a href="{% url 'accounts:login' %}" class="border-2 border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                        Sign In
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

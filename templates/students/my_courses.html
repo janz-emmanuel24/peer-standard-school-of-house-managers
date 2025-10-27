@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Courses - Student Dashboard{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">My Courses</h1>
+                <p class="text-xl text-primary-100 max-w-3xl mx-auto">
+                    Track your learning progress and manage your course enrollments
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Filter Section -->
+        <div class="mb-8 flex flex-wrap gap-4 justify-center">
+            <button class="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                All Courses
+            </button>
+            <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                In Progress
+            </button>
+            <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                Completed
+            </button>
+            <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                Available
+            </button>
+        </div>
+
+        <!-- Courses Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Sample Course 1 - In Progress -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <div class="h-48 bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <i class="fas fa-broom text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold">Advanced Cleaning Techniques</h3>
+                        <p class="text-primary-100">Professional Cleaning</p>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Progress</span>
+                            <span class="text-sm font-medium text-gray-900">65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary-600 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Master professional cleaning methods and techniques for residential and commercial spaces.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                            <i class="fas fa-clock mr-1"></i>
+                            In Progress
+                        </span>
+                        <span class="text-sm text-gray-500">Due: Nov 15, 2024</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="#" class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-primary-700 transition-colors duration-200">
+                            Continue
+                        </a>
+                        <a href="#" class="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-gray-700 transition-colors duration-200">
+                            Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Course 2 - Completed -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <div class="h-48 bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <i class="fas fa-utensils text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold">Cooking & Nutrition</h3>
+                        <p class="text-green-100">Culinary Skills</p>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Progress</span>
+                            <span class="text-sm font-medium text-gray-900">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-600 h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Learn essential cooking techniques and nutritional planning for healthy meal preparation.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            <i class="fas fa-check mr-1"></i>
+                            Completed
+                        </span>
+                        <span class="text-sm text-gray-500">Grade: A+</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="#" class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-green-700 transition-colors duration-200">
+                            Certificate
+                        </a>
+                        <a href="#" class="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-gray-700 transition-colors duration-200">
+                            Review
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Course 3 - Available -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <i class="fas fa-baby text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold">Childcare & Safety</h3>
+                        <p class="text-blue-100">Childcare Services</p>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium text-gray-700">Duration</span>
+                            <span class="text-sm font-medium text-gray-900">40 hours</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-gray-300 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Comprehensive training in childcare, safety protocols, and emergency procedures.</p>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            <i class="fas fa-play mr-1"></i>
+                            Available
+                        </span>
+                        <span class="text-sm text-gray-500">$299</span>
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="#" class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-primary-700 transition-colors duration-200">
+                            Enroll
+                        </a>
+                        <a href="#" class="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-gray-700 transition-colors duration-200">
+                            Preview
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Total Enrolled</p>
+                        <p class="text-2xl font-bold text-gray-900">5</p>
+                    </div>
+                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-book text-primary-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Completed</p>
+                        <p class="text-2xl font-bold text-gray-900">2</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">In Progress</p>
+                        <p class="text-2xl font-bold text-gray-900">1</p>
+                    </div>
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Certificates</p>
+                        <p class="text-2xl font-bold text-gray-900">2</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-certificate text-blue-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

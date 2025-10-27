@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Background Check - Peer Standard School of Maids{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Background Check Management</h1>
+                        <p class="text-gray-600 mt-1">Submit and manage your background verification documents</p>
+                    </div>
+                    <a href="{% url 'accounts:profile' %}" 
+                       class="text-gray-600 hover:text-gray-900 text-sm font-medium flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        Back to Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Submit New Background Check Form -->
+            <div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Submit New Background Check</h2>
+                        <p class="text-sm text-gray-600 mt-1">Fill out the form below to submit a new background check</p>
+                    </div>
+                    <div class="p-6">
+                        <form method="post" enctype="multipart/form-data" class="space-y-6">
+                            {% csrf_token %}
+                            
+                            <!-- Display form errors -->
+                            {% if form.non_field_errors %}
+                                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                                    <strong class="font-bold">Error!</strong>
+                                    <ul class="mt-2 list-disc list-inside">
+                                        {% for error in form.non_field_errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            <!-- Check Type -->
+                            <div>
+                                <label for="{{ form.check_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Check Type <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-search text-gray-400"></i>
+                                    </div>
+                                    {{ form.check_type|add_class:"block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" }}
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">e.g., Criminal Background, Employment History, Education Verification</p>
+                                {% if form.check_type.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {% for error in form.check_type.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Verification Agency -->
+                            <div>
+                                <label for="{{ form.verification_agency.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Verification Agency <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-building text-gray-400"></i>
+                                    </div>
+                                    {{ form.verification_agency|add_class:"block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" }}
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Name of the agency that conducted the check</p>
+                                {% if form.verification_agency.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {% for error in form.verification_agency.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Reference Number -->
+                            <div>
+                                <label for="{{ form.reference_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Reference Number <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-hashtag text-gray-400"></i>
+                                    </div>
+                                    {{ form.reference_number|add_class:"block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" }}
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Unique reference number provided by the verification agency</p>
+                                {% if form.reference_number.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {% for error in form.reference_number.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Conducted Date -->
+                                <div>
+                                    <label for="{{ form.conducted_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Conducted Date
+                                    </label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-calendar text-gray-400"></i>
+                                        </div>
+                                        {{ form.conducted_date|add_class:"block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" }}
+                                    </div>
+                                    {% if form.conducted_date.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {% for error in form.conducted_date.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Expiry Date -->
+                                <div>
+                                    <label for="{{ form.expiry_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                        Expiry Date
+                                    </label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <i class="fas fa-calendar-times text-gray-400"></i>
+                                        </div>
+                                        {{ form.expiry_date|add_class:"block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" }}
+                                    </div>
+                                    {% if form.expiry_date.errors %}
+                                        <div class="mt-1 text-sm text-red-600">
+                                            {% for error in form.expiry_date.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Notes -->
+                            <div>
+                                <label for="{{ form.notes.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Additional Notes
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute top-3 left-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-sticky-note text-gray-400"></i>
+                                    </div>
+                                    {{ form.notes|add_class:"block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" }}
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Any additional information or comments about this background check</p>
+                                {% if form.notes.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {% for error in form.notes.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Documents -->
+                            <div>
+                                <label for="{{ form.documents.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    Supporting Documents
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-file-upload text-gray-400"></i>
+                                    </div>
+                                    {{ form.documents|add_class:"block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" }}
+                                </div>
+                                <p class="mt-1 text-xs text-gray-500">Upload supporting documents (PDF, DOC, JPG, PNG - Max 10MB)</p>
+                                {% if form.documents.errors %}
+                                    <div class="mt-1 text-sm text-red-600">
+                                        {% for error in form.documents.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="pt-4">
+                                <button type="submit" 
+                                        class="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center">
+                                    <i class="fas fa-paper-plane mr-2"></i>
+                                    Submit Background Check
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background Checks History -->
+            <div>
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Background Check History</h2>
+                        <p class="text-sm text-gray-600 mt-1">View all your submitted background checks</p>
+                    </div>
+                    <div class="p-6">
+                        {% if background_checks %}
+                            <div class="space-y-4">
+                                {% for check in background_checks %}
+                                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
+                                        <div class="flex items-start justify-between">
+                                            <div class="flex-1">
+                                                <div class="flex items-center space-x-3 mb-2">
+                                                    <h3 class="font-medium text-gray-900">{{ check.check_type|title }}</h3>
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                                        {% if check.status == 'passed' %}bg-green-100 text-green-800
+                                                        {% elif check.status == 'failed' %}bg-red-100 text-red-800
+                                                        {% elif check.status == 'in_progress' %}bg-blue-100 text-blue-800
+                                                        {% elif check.status == 'expired' %}bg-gray-100 text-gray-800
+                                                        {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                                        {{ check.get_status_display }}
+                                                    </span>
+                                                </div>
+                                                
+                                                <div class="text-sm text-gray-600 space-y-1">
+                                                    <p><span class="font-medium">Agency:</span> {{ check.verification_agency }}</p>
+                                                    <p><span class="font-medium">Reference:</span> {{ check.reference_number }}</p>
+                                                    {% if check.conducted_date %}
+                                                        <p><span class="font-medium">Conducted:</span> {{ check.conducted_date|date:"M d, Y" }}</p>
+                                                    {% endif %}
+                                                    {% if check.expiry_date %}
+                                                        <p><span class="font-medium">Expires:</span> {{ check.expiry_date|date:"M d, Y" }}</p>
+                                                    {% endif %}
+                                                    <p><span class="font-medium">Submitted:</span> {{ check.created_at|date:"M d, Y \a\t g:i A" }}</p>
+                                                </div>
+                                                
+                                                {% if check.notes %}
+                                                    <div class="mt-2 p-2 bg-gray-50 rounded text-sm text-gray-700">
+                                                        <span class="font-medium">Notes:</span> {{ check.notes }}
+                                                    </div>
+                                                {% endif %}
+                                                
+                                                {% if check.documents %}
+                                                    <div class="mt-2">
+                                                        <a href="{{ check.documents.url }}" 
+                                                           target="_blank"
+                                                           class="inline-flex items-center text-primary-600 hover:text-primary-700 text-sm font-medium">
+                                                            <i class="fas fa-download mr-1"></i>
+                                                            Download Document
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="text-center py-12">
+                                <i class="fas fa-shield-alt text-4xl text-gray-300 mb-4"></i>
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">No Background Checks</h3>
+                                <p class="text-gray-600 mb-4">You haven't submitted any background checks yet.</p>
+                                <p class="text-sm text-gray-500">Use the form on the left to submit your first background check.</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Information Panel -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mt-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Important Information</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Background checks are required for certain positions and certifications</li>
+                                    <li>Processing time may vary depending on the verification agency</li>
+                                    <li>Keep your documents secure and up-to-date</li>
+                                    <li>Contact support if you have questions about your background check status</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

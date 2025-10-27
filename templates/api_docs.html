@@ -1,0 +1,1090 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}API Documentation - Peer Standard School of Maids{% endblock %}
+
+{% block extra_css %}
+<style>
+    .endpoint-card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .endpoint-card:hover {
+        transform: translateY(-2px);
+    }
+    .method-badge {
+        font-size: 0.75rem;
+        font-weight: bold;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+    }
+    .method-get { background-color: #10b981; color: white; }
+    .method-post { background-color: #3b82f6; color: white; }
+    .method-put { background-color: #f59e0b; color: white; }
+    .method-delete { background-color: #ef4444; color: white; }
+    .code-block {
+        background-color: #1f2937;
+        color: #f9fafb;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-family: 'Courier New', monospace;
+        font-size: 0.875rem;
+        overflow-x: auto;
+        margin: 0.5rem 0;
+    }
+    .response-example {
+        background-color: #f3f4f6;
+        border-left: 4px solid #9CAF88;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        border-radius: 0 0.5rem 0.5rem 0;
+    }
+    .parameter-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+    }
+    .parameter-table th,
+    .parameter-table td {
+        border: 1px solid #e5e7eb;
+        padding: 0.75rem;
+        text-align: left;
+    }
+    .parameter-table th {
+        background-color: #f9fafb;
+        font-weight: 600;
+    }
+    .copy-btn {
+        background-color: #6b7280;
+        color: white;
+        border: none;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.75rem;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+    .copy-btn:hover {
+        background-color: #4b5563;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-code text-primary-600 mr-3"></i>
+                API Documentation
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Complete API reference for Peer Standard School of Maids system. 
+                Use these endpoints to integrate with our platform programmatically.
+            </p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Table of Contents</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-2">
+                    <li><a href="#getting-started" class="text-primary-600 hover:text-primary-700">Getting Started</a></li>
+                    <li><a href="#authentication" class="text-primary-600 hover:text-primary-700">Authentication</a></li>
+                    <li><a href="#user-management" class="text-primary-600 hover:text-primary-700">User Management</a></li>
+                    <li><a href="#courses" class="text-primary-600 hover:text-primary-700">Courses</a></li>
+                </ul>
+                <ul class="space-y-2">
+                    <li><a href="#students" class="text-primary-600 hover:text-primary-700">Students</a></li>
+                    <li><a href="#employers" class="text-primary-600 hover:text-primary-700">Employers</a></li>
+                    <li><a href="#certificates" class="text-primary-600 hover:text-primary-700">Certificates</a></li>
+                    <li><a href="#financials" class="text-primary-600 hover:text-primary-700">Financials</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Getting Started -->
+        <div id="getting-started" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-rocket text-primary-600 mr-2"></i>
+                Getting Started
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Base URL</h3>
+                    <div class="code-block">
+                        https://your-domain.com/api/
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Authentication</h3>
+                    <p class="text-gray-600 mb-3">Our API uses JWT (JSON Web Token) authentication. You need to obtain a token first:</p>
+                    <div class="code-block">
+POST /api/token/
+Content-Type: application/json
+
+{
+    "username": "your_username",
+    "password": "your_password"
+}
+                    </div>
+                    <div class="response-example">
+                        <strong>Response:</strong>
+                        <pre>{
+    "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}</pre>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Using the Token</h3>
+                    <p class="text-gray-600 mb-3">Include the access token in the Authorization header for all protected endpoints:</p>
+                    <div class="code-block">
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Response Format</h3>
+                    <p class="text-gray-600 mb-3">All API responses are in JSON format. Successful responses include:</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li><strong>200 OK:</strong> Request successful</li>
+                        <li><strong>201 Created:</strong> Resource created successfully</li>
+                        <li><strong>400 Bad Request:</strong> Invalid request data</li>
+                        <li><strong>401 Unauthorized:</strong> Authentication required</li>
+                        <li><strong>403 Forbidden:</strong> Insufficient permissions</li>
+                        <li><strong>404 Not Found:</strong> Resource not found</li>
+                        <li><strong>500 Internal Server Error:</strong> Server error</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authentication -->
+        <div id="authentication" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-key text-primary-600 mr-2"></i>
+                Authentication
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-post">POST</span>
+                        <code class="text-sm font-mono">/api/token/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Obtain JWT access and refresh tokens</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Request Body:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>string</td>
+                                <td>Yes</td>
+                                <td>Your username or email</td>
+                            </tr>
+                            <tr>
+                                <td>password</td>
+                                <td>string</td>
+                                <td>Yes</td>
+                                <td>Your password</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X POST https://your-domain.com/api/token/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "student@example.com",
+    "password": "your_password"
+  }'
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>{
+    "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MzQ1NjQ4MDB9.signature",
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MzUxNjk2MDB9.signature"
+}</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-post">POST</span>
+                        <code class="text-sm font-mono">/api/token/refresh/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Refresh your access token using the refresh token</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Request Body:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>refresh</td>
+                                <td>string</td>
+                                <td>Yes</td>
+                                <td>Your refresh token</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X POST https://your-domain.com/api/token/refresh/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+  }'
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Management -->
+        <div id="user-management" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-users text-primary-600 mr-2"></i>
+                User Management
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/accounts/users/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">List all users (admin only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>{
+    "count": 25,
+    "next": "https://your-domain.com/api/accounts/users/?page=2",
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "username": "john_doe",
+            "email": "john@example.com",
+            "first_name": "John",
+            "last_name": "Doe",
+            "user_type": "student",
+            "phone_number": "+1234567890",
+            "is_verified": true,
+            "created_at": "2024-01-15T10:30:00Z"
+        }
+    ]
+}</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/accounts/users/me/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Get current user profile</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>{
+    "id": 1,
+    "username": "john_doe",
+    "email": "john@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "user_type": "student",
+    "phone_number": "+1234567890",
+    "address": "123 Main St, City, State",
+    "date_of_birth": "1990-01-15",
+    "profile_picture": "https://your-domain.com/media/profile_pictures/john.jpg",
+    "is_verified": true,
+    "created_at": "2024-01-15T10:30:00Z",
+    "updated_at": "2024-01-20T14:45:00Z"
+}</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-put">PUT</span>
+                        <code class="text-sm font-mono">/api/accounts/users/update_profile/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Update user profile</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Request Body:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>first_name</td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>User's first name</td>
+                            </tr>
+                            <tr>
+                                <td>last_name</td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>User's last name</td>
+                            </tr>
+                            <tr>
+                                <td>email</td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>User's email address</td>
+                            </tr>
+                            <tr>
+                                <td>phone_number</td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>User's phone number</td>
+                            </tr>
+                            <tr>
+                                <td>address</td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>User's address</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X PUT https://your-domain.com/api/accounts/users/update_profile/ \
+  -H "Authorization: Bearer your_access_token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "John",
+    "last_name": "Smith",
+    "phone_number": "+1234567890"
+  }'
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Courses -->
+        <div id="courses" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-book text-primary-600 mr-2"></i>
+                Courses
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/courses/courses/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">List all courses (public endpoint)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Query Parameters:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>search</td>
+                                <td>string</td>
+                                <td>Search courses by title or description</td>
+                            </tr>
+                            <tr>
+                                <td>category</td>
+                                <td>string</td>
+                                <td>Filter by category name</td>
+                            </tr>
+                            <tr>
+                                <td>level</td>
+                                <td>string</td>
+                                <td>Filter by course level (beginner, intermediate, advanced)</td>
+                            </tr>
+                            <tr>
+                                <td>page</td>
+                                <td>integer</td>
+                                <td>Page number for pagination</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X GET "https://your-domain.com/api/courses/courses/?search=cooking&level=beginner"
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>{
+    "count": 12,
+    "next": "https://your-domain.com/api/courses/courses/?page=2",
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "title": "Professional Cooking Basics",
+            "description": "Learn fundamental cooking techniques...",
+            "category": {
+                "id": 1,
+                "name": "Cooking & Nutrition",
+                "description": "Culinary skills and meal planning"
+            },
+            "duration": 40,
+            "price": 299.99,
+            "level": "beginner",
+            "max_students": 20,
+            "status": "active",
+            "start_date": "2024-02-01",
+            "instructors": [
+                {
+                    "id": 1,
+                    "user": {
+                        "first_name": "Chef",
+                        "last_name": "Smith"
+                    },
+                    "specialization": "French Cuisine"
+                }
+            ]
+        }
+    ]
+}</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/courses/courses/{id}/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Get detailed course information (public endpoint)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X GET https://your-domain.com/api/courses/courses/1/
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>{
+    "id": 1,
+    "title": "Professional Cooking Basics",
+    "description": "Comprehensive course covering fundamental cooking techniques...",
+    "category": {
+        "id": 1,
+        "name": "Cooking & Nutrition"
+    },
+    "duration": 40,
+    "price": 299.99,
+    "level": "beginner",
+    "max_students": 20,
+    "status": "active",
+    "start_date": "2024-02-01",
+    "end_date": "2024-03-15",
+    "modules": [
+        {
+            "id": 1,
+            "title": "Kitchen Safety",
+            "description": "Learn essential kitchen safety protocols",
+            "duration": 2,
+            "order": 1
+        }
+    ],
+    "assessments": [
+        {
+            "id": 1,
+            "title": "Final Practical Exam",
+            "description": "Hands-on cooking assessment",
+            "weight": 60,
+            "type": "practical"
+        }
+    ],
+    "instructors": [
+        {
+            "id": 1,
+            "user": {
+                "first_name": "Chef",
+                "last_name": "Smith"
+            },
+            "specialization": "French Cuisine",
+            "experience_years": 15
+        }
+    ]
+}</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/courses/categories/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">List all course categories (public endpoint)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>[
+    {
+        "id": 1,
+        "name": "Cooking & Nutrition",
+        "description": "Culinary skills and meal planning",
+        "is_active": true
+    },
+    {
+        "id": 2,
+        "name": "Cleaning & Maintenance",
+        "description": "Professional cleaning techniques",
+        "is_active": true
+    }
+]</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Students -->
+        <div id="students" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-graduation-cap text-primary-600 mr-2"></i>
+                Students
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/students/students/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">List all students (admin/instructor only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/students/students/me/enrollments/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Get my course enrollments (student only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>[
+    {
+        "id": 1,
+        "course": {
+            "id": 1,
+            "title": "Professional Cooking Basics",
+            "category": "Cooking & Nutrition"
+        },
+        "enrollment_date": "2024-01-15T10:30:00Z",
+        "status": "active",
+        "progress": 65,
+        "completion_date": null,
+        "grade": null
+    }
+]</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-post">POST</span>
+                        <code class="text-sm font-mono">/api/students/enrollments/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Enroll in a course (student only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Request Body:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>course</td>
+                                <td>integer</td>
+                                <td>Yes</td>
+                                <td>Course ID to enroll in</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X POST https://your-domain.com/api/students/enrollments/ \
+  -H "Authorization: Bearer your_access_token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "course": 1
+  }'
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employers -->
+        <div id="employers" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-building text-primary-600 mr-2"></i>
+                Employers
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/employers/job-postings/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">List job postings (public endpoint)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Query Parameters:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>search</td>
+                                <td>string</td>
+                                <td>Search jobs by title or description</td>
+                            </tr>
+                            <tr>
+                                <td>location</td>
+                                <td>string</td>
+                                <td>Filter by job location</td>
+                            </tr>
+                            <tr>
+                                <td>salary_min</td>
+                                <td>number</td>
+                                <td>Minimum salary filter</td>
+                            </tr>
+                            <tr>
+                                <td>salary_max</td>
+                                <td>number</td>
+                                <td>Maximum salary filter</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>{
+    "count": 8,
+    "results": [
+        {
+            "id": 1,
+            "title": "Household Manager",
+            "description": "Seeking experienced household manager...",
+            "employer": {
+                "id": 1,
+                "company_name": "Elite Household Services",
+                "location": "New York, NY"
+            },
+            "location": "Manhattan, NY",
+            "salary_range": "$60,000 - $80,000",
+            "employment_type": "full_time",
+            "requirements": [
+                "5+ years experience",
+                "Cooking certification",
+                "Valid driver's license"
+            ],
+            "posted_date": "2024-01-20T09:00:00Z",
+            "application_deadline": "2024-02-20T23:59:59Z",
+            "is_active": true
+        }
+    ]
+}</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-post">POST</span>
+                        <code class="text-sm font-mono">/api/employers/job-postings/{id}/apply/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Apply for a job (student only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Request Body:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>cover_letter</td>
+                                <td>string</td>
+                                <td>No</td>
+                                <td>Cover letter for the application</td>
+                            </tr>
+                            <tr>
+                                <td>resume</td>
+                                <td>file</td>
+                                <td>No</td>
+                                <td>Resume file upload</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X POST https://your-domain.com/api/employers/job-postings/1/apply/ \
+  -H "Authorization: Bearer your_access_token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "cover_letter": "I am very interested in this position..."
+  }'
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificates -->
+        <div id="certificates" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-certificate text-primary-600 mr-2"></i>
+                Certificates
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/certifications/certificates/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">List my certificates (student only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>[
+    {
+        "id": 1,
+        "certificate_number": "PSSM-2024-001",
+        "course": {
+            "id": 1,
+            "title": "Professional Cooking Basics"
+        },
+        "student": {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Doe"
+        },
+        "issue_date": "2024-01-15T10:30:00Z",
+        "expiry_date": "2026-01-15T10:30:00Z",
+        "status": "valid",
+        "verification_code": "ABC123XYZ",
+        "certificate_url": "https://your-domain.com/certificates/1.pdf"
+    }
+]</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/certifications/certificates/verify/?code={code}</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Verify certificate by code (public endpoint)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Query Parameters:</h4>
+                    <table class="parameter-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Required</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>code</td>
+                                <td>string</td>
+                                <td>Yes</td>
+                                <td>Certificate verification code</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Example Request:</h4>
+                    <div class="code-block">
+curl -X GET "https://your-domain.com/api/certifications/certificates/verify/?code=ABC123XYZ"
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>{
+    "valid": true,
+    "certificate": {
+        "certificate_number": "PSSM-2024-001",
+        "student_name": "John Doe",
+        "course_title": "Professional Cooking Basics",
+        "issue_date": "2024-01-15T10:30:00Z",
+        "expiry_date": "2026-01-15T10:30:00Z",
+        "status": "valid"
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financials -->
+        <div id="financials" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-dollar-sign text-primary-600 mr-2"></i>
+                Financials
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/financials/payments/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">List payments (admin only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+
+                    <h4 class="font-semibold text-gray-800 mb-2">Response:</h4>
+                    <div class="response-example">
+                        <pre>[
+    {
+        "id": 1,
+        "student": {
+            "id": 1,
+            "first_name": "John",
+            "last_name": "Doe"
+        },
+        "course": {
+            "id": 1,
+            "title": "Professional Cooking Basics"
+        },
+        "amount": 299.99,
+        "payment_method": "credit_card",
+        "status": "completed",
+        "payment_date": "2024-01-15T10:30:00Z",
+        "transaction_id": "txn_123456789"
+    }
+]</pre>
+                    </div>
+                </div>
+
+                <div class="endpoint-card bg-gray-50 p-4 rounded-md">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="method-badge method-get">GET</span>
+                        <code class="text-sm font-mono">/api/financials/payments/me/</code>
+                    </div>
+                    <p class="text-gray-600 mb-3">Get my payment history (student only)</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">Headers:</h4>
+                    <div class="code-block">
+Authorization: Bearer your_access_token
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive API Explorer -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                <i class="fas fa-play text-primary-600 mr-2"></i>
+                Interactive API Explorer
+            </h2>
+            <p class="text-gray-600 mb-4">
+                Click the button below to explore the API interactively in your browser:
+            </p>
+            <a href="/api/" 
+               class="inline-flex items-center px-6 py-3 bg-primary-600 text-white font-medium rounded-md hover:bg-primary-700 transition-colors">
+                <i class="fas fa-external-link-alt mr-2"></i>
+                Open API Explorer
+            </a>
+        </div>
+
+        <!-- Rate Limiting -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                Rate Limiting
+            </h2>
+            <p class="text-yellow-700 mb-4">
+                API requests are rate limited to ensure fair usage:
+            </p>
+            <ul class="list-disc list-inside text-yellow-700 space-y-1">
+                <li><strong>Authenticated users:</strong> 1000 requests per hour</li>
+                <li><strong>Anonymous users:</strong> 100 requests per hour</li>
+                <li><strong>Token endpoints:</strong> 10 requests per minute</li>
+            </ul>
+            <p class="text-yellow-700 mt-4">
+                Rate limit headers are included in all responses:
+            </p>
+            <div class="code-block mt-2">
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1640995200
+            </div>
+        </div>
+
+        <!-- Error Handling -->
+        <div class="bg-red-50 border border-red-200 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                Error Handling
+            </h2>
+            <p class="text-red-700 mb-4">
+                All errors are returned in a consistent JSON format:
+            </p>
+            <div class="response-example">
+                <pre>{
+    "error": "Validation failed",
+    "details": {
+        "username": ["This field is required."],
+        "email": ["Enter a valid email address."]
+    },
+    "status_code": 400
+}</pre>
+            </div>
+            <p class="text-red-700 mt-4">
+                Common error codes:
+            </p>
+            <ul class="list-disc list-inside text-red-700 space-y-1 mt-2">
+                <li><strong>400:</strong> Bad Request - Invalid request data</li>
+                <li><strong>401:</strong> Unauthorized - Authentication required</li>
+                <li><strong>403:</strong> Forbidden - Insufficient permissions</li>
+                <li><strong>404:</strong> Not Found - Resource not found</li>
+                <li><strong>429:</strong> Too Many Requests - Rate limit exceeded</li>
+                <li><strong>500:</strong> Internal Server Error - Server error</li>
+            </ul>
+        </div>
+
+        <!-- Support -->
+        <div class="bg-primary-50 rounded-lg p-6 mt-8">
+            <h2 class="text-2xl font-bold text-primary-900 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>
+                Need Help?
+            </h2>
+            <p class="text-primary-700 mb-4">
+                For API support and questions, please contact our technical team:
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a href="mailto:api-support@peerstandardschool.com" 
+                   class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Email Support
+                </a>
+                <a href="tel:+15551234567" 
+                   class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors">
+                    <i class="fas fa-phone mr-2"></i>
+                    Call Support
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Copy to clipboard functionality
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        // Show success message
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.style.backgroundColor = '#10b981';
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.backgroundColor = '#6b7280';
+        }, 2000);
+    });
+}
+
+// Add copy buttons to code blocks
+document.addEventListener('DOMContentLoaded', function() {
+    const codeBlocks = document.querySelectorAll('.code-block');
+    codeBlocks.forEach(block => {
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-btn';
+        copyBtn.textContent = 'Copy';
+        copyBtn.onclick = () => copyToClipboard(block.textContent);
+        block.style.position = 'relative';
+        block.appendChild(copyBtn);
+    });
+});
+</script>
+{% endblock %}

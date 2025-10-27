@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Courses - Peer Standard School of Maids{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Training Programs</h1>
+                <p class="text-xl text-primary-100 max-w-3xl mx-auto">
+                    Professional training courses designed to prepare you for excellence in domestic services
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Filter Section -->
+        <div class="mb-12">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button class="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                    All Courses
+                </button>
+                {% for category in categories %}
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    {{ category.name }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Courses Grid -->
+        {% if courses %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for course in courses %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <!-- Course Image -->
+                <div class="h-48 bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white text-6xl"></i>
+                </div>
+                
+                <!-- Course Content -->
+                <div class="p-6">
+                    <!-- Category Badge -->
+                    <div class="mb-3">
+                        <span class="inline-block px-3 py-1 bg-primary-100 text-primary-800 text-sm font-medium rounded-full">
+                            {{ course.category.name }}
+                        </span>
+                    </div>
+                    
+                    <!-- Course Title -->
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">{{ course.title }}</h3>
+                    
+                    <!-- Course Description -->
+                    <p class="text-gray-600 mb-4 line-clamp-3">{{ course.description|truncatewords:20 }}</p>
+                    
+                    <!-- Course Details -->
+                    <div class="space-y-2 mb-6">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span>{{ course.duration }} hours</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-users mr-2"></i>
+                            <span>Max {{ course.max_students }} students</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-dollar-sign mr-2"></i>
+                            <span class="font-semibold text-green-600">${{ course.price }}</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3">
+                        <a href="{% url 'courses:detail' course.id %}" 
+                           class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-primary-700 transition-colors duration-200">
+                            View Details
+                        </a>
+                        {% if user.is_authenticated %}
+                            {% if user.user_type == 'student' %}
+                                <a href="{% url 'courses:enroll' course.id %}" 
+                                   class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-green-700 transition-colors duration-200">
+                                    Enroll Now
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'accounts:register' %}" 
+                               class="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-green-700 transition-colors duration-200">
+                                Register to Enroll
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- No Courses Message -->
+        <div class="text-center py-16">
+            <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <i class="fas fa-book text-gray-400 text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">No Courses Available</h3>
+            <p class="text-gray-600 mb-8">We're currently preparing new courses. Check back soon!</p>
+            <a href="{% url 'home' %}" class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                Back to Home
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Call to Action Section -->
+    <div class="bg-primary-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Ready to Start Your Journey?</h2>
+            <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                Join our professional training program and unlock your potential in domestic services
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard:home' %}" class="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                        Go to Dashboard
+                    </a>
+                {% else %}
+                    <a href="{% url 'accounts:register' %}" class="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                        Register Now
+                    </a>
+                    <a href="{% url 'accounts:login' %}" class="border-2 border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                        Sign In
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

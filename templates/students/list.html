@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Students - Peer Standard School of Maids{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Students</h1>
+                <p class="text-xl text-primary-100 max-w-3xl mx-auto">
+                    Meet our talented students who are building successful careers in domestic services
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Students Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Filter Section -->
+        <div class="mb-12">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button class="px-6 py-3 bg-primary-600 text-white rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                    All Students
+                </button>
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    Active
+                </button>
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    Graduated
+                </button>
+                <button class="px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200">
+                    Certified
+                </button>
+            </div>
+        </div>
+
+        <!-- Students Grid -->
+        {% if students %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for student in students %}
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                <!-- Student Header -->
+                <div class="h-32 bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center">
+                    <div class="text-center text-white">
+                        {% if student.user.profile_picture %}
+                            <img src="{{ student.user.profile_picture.url }}" alt="{{ student.user.get_full_name }}" class="w-16 h-16 rounded-full mx-auto mb-2 object-cover">
+                        {% else %}
+                            <i class="fas fa-user text-4xl mb-2"></i>
+                        {% endif %}
+                        <p class="text-sm font-medium">
+                            {% if student.is_active %}Active Student{% else %}Graduated{% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Student Content -->
+                <div class="p-6">
+                    <!-- Student Name -->
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">{{ student.user.get_full_name|default:student.user.username }}</h3>
+                    
+                    <!-- Contact Info -->
+                    <div class="space-y-2 mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-primary-600 mr-2"></i>
+                            <span class="text-gray-600 text-sm">{{ student.user.email }}</span>
+                        </div>
+                        {% if student.user.phone_number %}
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-primary-600 mr-2"></i>
+                            <span class="text-gray-600 text-sm">{{ student.user.phone_number }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Enrollment Date -->
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-calendar text-primary-600 mr-2"></i>
+                            <span class="text-gray-600 text-sm">Enrolled {{ student.enrollment_date|date:"M Y" }}</span>
+                        </div>
+                        {% if student.is_active %}
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
+                                Active
+                            </span>
+                        {% else %}
+                            <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs font-medium rounded-full">
+                                Graduated
+                            </span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3">
+                        <a href="{% url 'students:detail' student.id %}" 
+                           class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-primary-700 transition-colors duration-200">
+                            View Profile
+                        </a>
+                        {% if user.user_type == 'admin' or user.user_type == 'instructor' %}
+                        <a href="{% url 'students:edit' student.id %}" 
+                           class="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg font-medium text-center hover:bg-gray-700 transition-colors duration-200">
+                            Edit
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- No Students Message -->
+        <div class="text-center py-16">
+            <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <i class="fas fa-users text-gray-400 text-3xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">No Students Found</h3>
+            <p class="text-gray-600 mb-8">No students are currently enrolled in the system.</p>
+            <a href="{% url 'home' %}" class="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-200">
+                Back to Home
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Student Success Stories</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Our students go on to build successful careers in domestic services
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Professional Training</h3>
+                    <p class="text-gray-600">Comprehensive courses covering all aspects of domestic services</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-certificate text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Industry Certification</h3>
+                    <p class="text-gray-600">Recognized certificates that open doors to better opportunities</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-handshake text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Job Placement</h3>
+                    <p class="text-gray-600">Direct connections with employers seeking qualified professionals</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

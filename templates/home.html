@@ -1,0 +1,379 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Peer Standard School of Maids{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Professional Training for Domestic Excellence</h1>
+                <p class="text-xl mb-8 text-primary-100">Join Peer Standard School of Maids and become a certified professional in domestic services. Our comprehensive training programs prepare you for success in the modern household management industry.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'accounts:register' %}" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center shadow-lg hover:shadow-xl">
+                        <i class="fas fa-user-plus mr-2"></i>Enroll Now
+                    </a>
+                    <a href="{% url 'programs' %}" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>View Programs
+                    </a>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div class="w-full max-w-md">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
+                        <div class="text-center">
+                            <i class="fas fa-graduation-cap text-6xl text-white mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Start Your Journey</h3>
+                            <p class="text-primary-100">Join thousands of successful graduates</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Why Choose Our School?</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive training programs designed for modern domestic service professionals</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 text-center">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Certified Training</h3>
+                <p class="text-gray-600">Comprehensive courses covering all aspects of domestic services with industry-recognized certifications.</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 text-center">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Job Placement</h3>
+                <p class="text-gray-600">Direct connections with employers and guaranteed placement assistance for all graduates.</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 text-center">
+                <div class="w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-6 flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Background Verification</h3>
+                <p class="text-gray-600">Comprehensive background checks and safety verification for both students and employers.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Course Categories -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Training Programs</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Specialized courses designed to meet industry standards</p>
+        </div>
+        
+        {% if categories_with_courses %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for category_data in categories_with_courses %}
+                    <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 {% cycle 'bg-yellow-500' 'bg-red-500' 'bg-blue-500' 'bg-green-500' 'bg-pink-500' 'bg-gray-600' %} text-white rounded-full flex items-center justify-center mr-4">
+                                {% if 'Cleaning' in category_data.category.name %}
+                                    <i class="fas fa-broom text-lg"></i>
+                                {% elif 'Cooking' in category_data.category.name %}
+                                    <i class="fas fa-utensils text-lg"></i>
+                                {% elif 'Etiquette' in category_data.category.name %}
+                                    <i class="fas fa-handshake text-lg"></i>
+                                {% elif 'Budgeting' in category_data.category.name %}
+                                    <i class="fas fa-calculator text-lg"></i>
+                                {% elif 'Caregiving' in category_data.category.name %}
+                                    <i class="fas fa-heart text-lg"></i>
+                                {% elif 'Driving' in category_data.category.name %}
+                                    <i class="fas fa-car text-lg"></i>
+                                {% else %}
+                                    <i class="fas fa-graduation-cap text-lg"></i>
+                                {% endif %}
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900">{{ category_data.category.name }}</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">{{ category_data.category.description }}</p>
+                        
+                        <!-- Show sample courses for this category -->
+                        <div class="space-y-3">
+                            {% for course in category_data.courses %}
+                                <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                                    <h4 class="font-semibold text-gray-900 text-sm mb-1">{{ course.title }}</h4>
+                                    <p class="text-xs text-gray-600 mb-2">{{ course.description|truncatewords:15 }}</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500">
+                                        <span class="bg-primary-100 text-primary-800 px-2 py-1 rounded-full">
+                                            {{ course.get_difficulty_level_display }}
+                                        </span>
+                                        <span class="font-medium">${{ course.tuition_fee }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- View all courses link -->
+                        <div class="mt-4 pt-4 border-t border-gray-200">
+                            <a href="{% url 'courses:list' %}?category={{ category_data.category.id }}" 
+                               class="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center">
+                                View All {{ category_data.category.name }} Courses
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Fallback if no courses are available -->
+            <div class="text-center py-12">
+                <i class="fas fa-graduation-cap text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Training Programs Coming Soon</h3>
+                <p class="text-gray-600 mb-6">We're preparing our comprehensive training programs for you.</p>
+                <a href="{% url 'accounts:register' %}" 
+                   class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200">
+                    Get Notified When Available
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What Our Students Say</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Hear from our successful graduates who have transformed their careers through our professional training programs</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold text-xl">SM</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900">Sarah Mitchell</h4>
+                        <p class="text-gray-600">Cleaning Specialist</p>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic mb-4">
+                    "The cleaning and maintenance course completely changed my career. I learned professional techniques that helped me start my own cleaning business. The instructors were amazing and the hands-on training was invaluable."
+                </blockquote>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>New York, NY</span>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold text-xl">MJ</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900">Maria Johnson</h4>
+                        <p class="text-gray-600">Personal Chef</p>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic mb-4">
+                    "The cooking and nutrition program was exceptional! I now work as a personal chef for high-end clients. The curriculum covered everything from basic cooking to advanced meal planning and dietary requirements."
+                </blockquote>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Los Angeles, CA</span>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold text-xl">DW</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900">David Williams</h4>
+                        <p class="text-gray-600">Household Manager</p>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic mb-4">
+                    "The etiquette and communication course helped me land a position as a household manager for a prominent family. The professional communication skills I learned are essential in my daily work."
+                </blockquote>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Chicago, IL</span>
+                </div>
+            </div>
+            
+            <!-- Testimonial 4 -->
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold text-xl">LC</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900">Lisa Chen</h4>
+                        <p class="text-gray-600">Senior Caregiver</p>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic mb-4">
+                    "The caregiving program gave me the confidence and skills to provide excellent care for elderly clients. The first aid training and safety protocols are now second nature to me."
+                </blockquote>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Seattle, WA</span>
+                </div>
+            </div>
+            
+            <!-- Testimonial 5 -->
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold text-xl">RT</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900">Robert Taylor</h4>
+                        <p class="text-gray-600">Family Driver</p>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic mb-4">
+                    "The driving and transportation course was comprehensive and practical. I learned defensive driving techniques and vehicle maintenance that have made me a trusted family driver."
+                </blockquote>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Miami, FL</span>
+                </div>
+            </div>
+            
+            <!-- Testimonial 6 -->
+            <div class="bg-gray-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center mr-4">
+                        <span class="text-white font-bold text-xl">AG</span>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-900">Anna Garcia</h4>
+                        <p class="text-gray-600">Household Administrator</p>
+                        <div class="flex text-yellow-400 mt-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <blockquote class="text-gray-700 italic mb-4">
+                    "The budgeting and management course taught me valuable skills in household administration. I now manage multiple properties and have increased my income significantly."
+                </blockquote>
+                <div class="flex items-center text-sm text-gray-500">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Austin, TX</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action for Testimonials -->
+        <div class="text-center mt-12">
+            <div class="bg-gradient-to-r from-primary-50 to-primary-100 rounded-2xl p-8 border border-primary-200">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to Join Our Success Stories?</h3>
+                <p class="text-gray-600 mb-6">Start your journey today and become the next success story in our community of professional domestic service providers.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'accounts:register' %}" class="bg-primary-600 text-white hover:bg-primary-700 px-8 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
+                        <i class="fas fa-user-plus mr-2"></i>Start Your Journey
+                    </a>
+                    <a href="{% url 'courses:list' %}" class="border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center">
+                        <i class="fas fa-book mr-2"></i>Explore Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Statistics Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-4xl md:text-5xl font-bold text-primary-600 mb-2">500+</h3>
+                <p class="text-gray-600 font-medium">Graduates</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-4xl md:text-5xl font-bold text-green-600 mb-2">95%</h3>
+                <p class="text-gray-600 font-medium">Placement Rate</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-4xl md:text-5xl font-bold text-blue-600 mb-2">50+</h3>
+                <p class="text-gray-600 font-medium">Partner Employers</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-4xl md:text-5xl font-bold text-yellow-600 mb-2">10+</h3>
+                <p class="text-gray-600 font-medium">Years Experience</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Start Your Journey?</h2>
+        <p class="text-xl mb-8 text-primary-100 max-w-3xl mx-auto">Join hundreds of successful graduates who have transformed their careers through our professional training programs.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'accounts:register' %}" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-user-plus mr-2"></i>Enroll Now
+            </a>
+            <a href="{% url 'accounts:login' %}" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-sign-in-alt mr-2"></i>Login
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

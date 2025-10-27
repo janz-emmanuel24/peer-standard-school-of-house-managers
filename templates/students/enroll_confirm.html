@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Confirm Enrollment - {{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Header Section -->
+    <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Confirm Course Enrollment</h1>
+                <p class="text-xl text-primary-100 max-w-3xl mx-auto">
+                    Review course details and confirm your enrollment
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrollment Confirmation -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Course Information -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <!-- Course Header -->
+                    <div class="h-48 bg-gradient-to-r from-primary-500 to-primary-600 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fas fa-book text-4xl mb-2"></i>
+                            <h2 class="text-2xl font-bold">{{ course.title }}</h2>
+                            <p class="text-primary-100">{{ course.category.name }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Course Details -->
+                    <div class="p-8">
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Course Description</h3>
+                            <p class="text-gray-600 leading-relaxed">{{ course.description }}</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-primary-600 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">Duration</p>
+                                    <p class="text-lg font-semibold text-gray-900">{{ course.duration }} hours</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <i class="fas fa-signal text-primary-600 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">Level</p>
+                                    <p class="text-lg font-semibold text-gray-900">{{ course.get_level_display }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <i class="fas fa-dollar-sign text-primary-600 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">Price</p>
+                                    <p class="text-lg font-semibold text-gray-900">${{ course.price }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-primary-600 mr-3"></i>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-700">Status</p>
+                                    <p class="text-lg font-semibold text-gray-900">{{ course.get_status_display }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if course.modules.all %}
+                        <div class="mb-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Course Modules</h3>
+                            <div class="space-y-3">
+                                {% for module in course.modules.all %}
+                                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">{{ module.title }}</h4>
+                                        <p class="text-sm text-gray-600">{{ module.description|truncatewords:15 }}</p>
+                                    </div>
+                                    <span class="text-sm text-gray-500">{{ module.duration }}h</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enrollment Form -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Enrollment Details</h3>
+                    
+                    <form method="post" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        <!-- Course Summary -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Course Summary</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Course:</span>
+                                    <span class="font-medium">{{ course.title }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Duration:</span>
+                                    <span class="font-medium">{{ course.duration }} hours</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Level:</span>
+                                    <span class="font-medium">{{ course.get_level_display }}</span>
+                                </div>
+                                <hr class="my-2">
+                                <div class="flex justify-between text-lg font-bold">
+                                    <span>Total Cost:</span>
+                                    <span class="text-primary-600">${{ course.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Information -->
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-3">Payment Method</h4>
+                            <div class="space-y-3">
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment_method" value="credit_card" class="mr-3" checked>
+                                    <span class="text-sm">Credit Card</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment_method" value="bank_transfer" class="mr-3">
+                                    <span class="text-sm">Bank Transfer</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="payment_method" value="cash" class="mr-3">
+                                    <span class="text-sm">Cash Payment</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div>
+                            <label class="flex items-start">
+                                <input type="checkbox" name="terms_accepted" class="mr-3 mt-1" required>
+                                <span class="text-sm text-gray-600">
+                                    I agree to the <a href="#" class="text-primary-600 hover:text-primary-700">Terms and Conditions</a> 
+                                    and <a href="#" class="text-primary-600 hover:text-primary-700">Privacy Policy</a>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="space-y-3">
+                            <button type="submit" class="w-full bg-primary-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200">
+                                <i class="fas fa-check mr-2"></i>Confirm Enrollment
+                            </button>
+                            <a href="{% url 'courses:detail' course.id %}" class="w-full bg-gray-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-200 text-center block">
+                                <i class="fas fa-arrow-left mr-2"></i>Back to Course
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">What You'll Get</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Comprehensive training and support to help you succeed
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Professional Training</h3>
+                    <p class="text-gray-600">Expert-led instruction with hands-on practice and real-world scenarios</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-certificate text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Industry Certificate</h3>
+                    <p class="text-gray-600">Recognized certification that enhances your professional credibility</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-handshake text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Job Placement Support</h3>
+                    <p class="text-gray-600">Direct connections with employers seeking qualified professionals</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

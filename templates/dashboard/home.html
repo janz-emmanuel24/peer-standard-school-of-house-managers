@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Peer Standard School of Maids{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome Section -->
+        <div class="mb-8">
+            <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white p-6 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-2">Welcome back, {{ user.get_full_name|default:user.username }}!</h2>
+                <p class="text-primary-100">Here's what's happening at Peer Standard School of Maids</p>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-users text-xl"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-primary-600 mb-2">{{ stats.total_students }}</h3>
+                <p class="text-gray-600 font-medium">Active Students</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-book text-xl"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-green-600 mb-2">{{ stats.total_courses }}</h3>
+                <p class="text-gray-600 font-medium">Active Courses</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <div class="w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-building text-xl"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-blue-600 mb-2">{{ stats.total_employers }}</h3>
+                <p class="text-gray-600 font-medium">Partner Employers</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
+                <div class="w-16 h-16 bg-yellow-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-xl"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-yellow-600 mb-2">{{ stats.total_placements }}</h3>
+                <p class="text-gray-600 font-medium">Successful Placements</p>
+            </div>
+        </div>
+
+        <!-- Monthly Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-user-plus text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ml-4">
+                        <h6 class="text-gray-500 text-sm font-medium mb-1">New Students</h6>
+                        <h4 class="text-2xl font-bold text-gray-900">{{ monthly_stats.new_students }}</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clipboard-list text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ml-4">
+                        <h6 class="text-gray-500 text-sm font-medium mb-1">New Enrollments</h6>
+                        <h4 class="text-2xl font-bold text-gray-900">{{ monthly_stats.new_enrollments }}</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-handshake text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ml-4">
+                        <h6 class="text-gray-500 text-sm font-medium mb-1">New Placements</h6>
+                        <h4 class="text-2xl font-bold text-gray-900">{{ monthly_stats.new_placements }}</h4>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 ml-4">
+                        <h6 class="text-gray-500 text-sm font-medium mb-1">Monthly Revenue</h6>
+                        <h4 class="text-2xl font-bold text-gray-900">${{ monthly_stats.revenue|floatformat:0 }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Recent Activities -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                            <i class="fas fa-clock mr-2 text-primary-600"></i>Recent Activities
+                        </h5>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h6 class="text-gray-500 text-sm font-medium mb-4">Recent Enrollments</h6>
+                                <div class="space-y-4">
+                                    {% for enrollment in recent_enrollments %}
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-primary-500 text-white rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user text-sm"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ml-3">
+                                            <h6 class="text-sm font-medium text-gray-900">{{ enrollment.student.user.get_full_name }}</h6>
+                                            <p class="text-xs text-gray-500">{{ enrollment.course.title }}</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                                {{ enrollment.get_status_display }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <p class="text-gray-500 text-sm">No recent enrollments</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h6 class="text-gray-500 text-sm font-medium mb-4">Recent Placements</h6>
+                                <div class="space-y-4">
+                                    {% for placement in recent_placements %}
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0">
+                                            <div class="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center">
+                                                <i class="fas fa-briefcase text-sm"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 ml-3">
+                                            <h6 class="text-sm font-medium text-gray-900">{{ placement.student.user.get_full_name }}</h6>
+                                            <p class="text-xs text-gray-500">{{ placement.employer.company_name }}</p>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                {{ placement.get_status_display }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% empty %}
+                                    <p class="text-gray-500 text-sm">No recent placements</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Course Statistics -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-2xl shadow-lg">
+                    <div class="p-6 border-b border-gray-200">
+                        <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                            <i class="fas fa-chart-bar mr-2 text-primary-600"></i>Course Performance
+                        </h5>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-6">
+                            {% for course_stat in course_stats %}
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <h6 class="text-sm font-medium text-gray-900">{{ course_stat.course.title }}</h6>
+                                    <span class="text-sm text-gray-500">{{ course_stat.completion_rate }}%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-primary-600 h-2 rounded-full transition-all duration-300" style="width: {{ course_stat.completion_rate }}%"></div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">{{ course_stat.completed_enrollments }}/{{ course_stat.total_enrollments }} completed</p>
+                            </div>
+                            {% empty %}
+                            <p class="text-gray-500 text-sm">No course data available</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Summary (Admin only) -->
+        {% if user.user_type == 'admin' %}
+        <div class="mt-8">
+            <div class="bg-white rounded-2xl shadow-lg">
+                <div class="p-6 border-b border-gray-200">
+                    <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-chart-line mr-2 text-primary-600"></i>Financial Summary
+                    </h5>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <h4 class="text-2xl font-bold text-green-600 mb-2">${{ financial_summary.total_revenue|floatformat:0 }}</h4>
+                            <p class="text-gray-600 font-medium">Total Revenue</p>
+                        </div>
+                        <div class="text-center">
+                            <h4 class="text-2xl font-bold text-primary-600 mb-2">${{ financial_summary.monthly_revenue|floatformat:0 }}</h4>
+                            <p class="text-gray-600 font-medium">Monthly Revenue</p>
+                        </div>
+                        <div class="text-center">
+                            <h4 class="text-2xl font-bold text-yellow-600 mb-2">${{ financial_summary.pending_payments|floatformat:0 }}</h4>
+                            <p class="text-gray-600 font-medium">Pending Payments</p>
+                        </div>
+                        <div class="text-center">
+                            <h4 class="text-2xl font-bold text-red-600 mb-2">${{ financial_summary.total_expenses|floatformat:0 }}</h4>
+                            <p class="text-gray-600 font-medium">Total Expenses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

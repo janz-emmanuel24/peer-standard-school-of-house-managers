@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Programs - Peer Standard School Of House Managers{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Our Programs</h1>
+            <p class="text-xl text-primary-100 max-w-3xl mx-auto">Comprehensive training programs designed for professional domestic service excellence</p>
+        </div>
+    </div>
+</section>
+
+<!-- Programs Overview -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Training Programs</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Specialized courses designed to meet industry standards and prepare you for success</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Cleaning & Maintenance -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-yellow-500 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-broom text-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Cleaning & Maintenance</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Professional cleaning techniques, equipment handling, and maintenance protocols.</p>
+                <ul class="space-y-2 mb-6">
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Deep cleaning methods
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Eco-friendly products
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Equipment maintenance
+                    </li>
+                </ul>
+                <div class="flex items-center justify-between">
+                    <span class="text-primary-600 font-semibold">2-4 weeks</span>
+                    <a href="{% url 'courses:list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">View Courses →</a>
+                </div>
+            </div>
+            
+            <!-- Cooking & Nutrition -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-utensils text-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Cooking & Nutrition</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Culinary skills, meal planning, dietary requirements, and kitchen management.</p>
+                <ul class="space-y-2 mb-6">
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Basic to advanced cooking
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Nutrition planning
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Kitchen safety
+                    </li>
+                </ul>
+                <div class="flex items-center justify-between">
+                    <span class="text-primary-600 font-semibold">3-6 weeks</span>
+                    <a href="{% url 'courses:list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">View Courses →</a>
+                </div>
+            </div>
+            
+            <!-- Etiquette & Communication -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-handshake text-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Etiquette & Communication</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Professional communication, social etiquette, and client relationship management.</p>
+                <ul class="space-y-2 mb-6">
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Professional communication
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Social etiquette
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Conflict resolution
+                    </li>
+                </ul>
+                <div class="flex items-center justify-between">
+                    <span class="text-primary-600 font-semibold">2-3 weeks</span>
+                    <a href="{% url 'courses:list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">View Courses →</a>
+                </div>
+            </div>
+            
+            <!-- Budgeting & Management -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-calculator text-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Budgeting & Management</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Household budgeting, inventory management, and resource optimization.</p>
+                <ul class="space-y-2 mb-6">
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Budget planning
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Inventory management
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Cost optimization
+                    </li>
+                </ul>
+                <div class="flex items-center justify-between">
+                    <span class="text-primary-600 font-semibold">2-3 weeks</span>
+                    <a href="{% url 'courses:list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">View Courses →</a>
+                </div>
+            </div>
+            
+            <!-- Caregiving -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-pink-500 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-heart text-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Caregiving</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Elderly care, child care, and specialized caregiving techniques.</p>
+                <ul class="space-y-2 mb-6">
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Elderly care basics
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Child safety
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>First aid training
+                    </li>
+                </ul>
+                <div class="flex items-center justify-between">
+                    <span class="text-primary-600 font-semibold">3-4 weeks</span>
+                    <a href="{% url 'courses:list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">View Courses →</a>
+                </div>
+            </div>
+            
+            <!-- Driving & Transportation -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-gray-600 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-car text-lg"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Driving & Transportation</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Safe driving practices, vehicle maintenance, and transportation services.</p>
+                <ul class="space-y-2 mb-6">
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Defensive driving
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Vehicle maintenance
+                    </li>
+                    <li class="flex items-center text-sm text-gray-600">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Route planning
+                    </li>
+                </ul>
+                <div class="flex items-center justify-between">
+                    <span class="text-primary-600 font-semibold">1-2 weeks</span>
+                    <a href="{% url 'courses:list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">View Courses →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certification Programs -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Certification Programs</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Earn industry-recognized certifications that enhance your professional credibility</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-certificate text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Basic Domestic Service</h3>
+                <p class="text-gray-600 mb-4">Foundation certification covering essential domestic service skills.</p>
+                <div class="text-primary-600 font-semibold">4-6 weeks</div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-star text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Advanced Household Management</h3>
+                <p class="text-gray-600 mb-4">Comprehensive certification for complex household management.</p>
+                <div class="text-primary-600 font-semibold">8-12 weeks</div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-crown text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Executive Domestic Service</h3>
+                <p class="text-gray-600 mb-4">Premium certification for high-end domestic service positions.</p>
+                <div class="text-primary-600 font-semibold">12-16 weeks</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Program Benefits -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Programs?</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive benefits that set our programs apart</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Expert Instructors</h3>
+                <p class="text-gray-600 text-sm">Learn from industry professionals with years of experience.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Job Placement</h3>
+                <p class="text-gray-600 text-sm">We help connect graduates with employment opportunities.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-certificate text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Industry Recognition</h3>
+                <p class="text-gray-600 text-sm">Certifications recognized by leading domestic service agencies.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-users text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Small Classes</h3>
+                <p class="text-gray-600 text-sm">Personalized attention with small class sizes for better learning.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-primary-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">Ready to Start Your Training?</h2>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">Choose from our comprehensive programs and begin your journey to professional excellence.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'accounts:register' %}" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center shadow-lg hover:shadow-xl">
+                <i class="fas fa-user-plus mr-2"></i>Enroll Now
+            </a>
+            <a href="{% url 'courses:list' %}" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-book mr-2"></i>View All Courses
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

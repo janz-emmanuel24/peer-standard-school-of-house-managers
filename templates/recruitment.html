@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Recruitment - Peer Standard School Of House Managers{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Recruitment</h1>
+            <p class="text-xl text-primary-100 max-w-3xl mx-auto">Find qualified domestic service professionals for your household needs</p>
+        </div>
+    </div>
+</section>
+
+<!-- For Employers -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">For Employers</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Access our network of certified domestic service professionals</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <div class="w-12 h-12 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-search text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Find Candidates</h3>
+                <p class="text-gray-600 text-center mb-4">Browse our database of certified domestic service professionals.</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Verified credentials</li>
+                    <li>• Background checked</li>
+                    <li>• Skills assessment</li>
+                    <li>• References available</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <div class="w-12 h-12 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Post Jobs</h3>
+                <p class="text-gray-600 text-center mb-4">Create detailed job postings to attract the right candidates.</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Detailed job descriptions</li>
+                    <li>• Salary ranges</li>
+                    <li>• Requirements</li>
+                    <li>• Application tracking</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <div class="w-12 h-12 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-handshake text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Hire Professionals</h3>
+                <p class="text-gray-600 text-center mb-4">Connect with qualified candidates and make informed hiring decisions.</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Interview scheduling</li>
+                    <li>• Candidate screening</li>
+                    <li>• Reference checks</li>
+                    <li>• Contract assistance</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services for Employers -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Our Services</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive recruitment solutions for your domestic service needs</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Staff Placement</h3>
+                </div>
+                <p class="text-gray-600 mb-4">We help you find the perfect domestic service professionals for your specific needs.</p>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Housekeepers and cleaners
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Chefs and cooks
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Nannies and caregivers
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Personal assistants
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Drivers and chauffeurs
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-16 h-16 bg-primary-500 text-white rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-shield-alt text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900">Background Verification</h3>
+                </div>
+                <p class="text-gray-600 mb-4">Comprehensive background checks and verification services for all candidates.</p>
+                <ul class="space-y-2 text-gray-600">
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Criminal background checks
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Employment verification
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Reference checks
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Identity verification
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Skills assessment
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- For Job Seekers -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">For Job Seekers</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Find your next opportunity in domestic service</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <div class="w-12 h-12 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-user-plus text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Create Profile</h3>
+                <p class="text-gray-600 text-center mb-4">Build a professional profile showcasing your skills and experience.</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Skills and certifications</li>
+                    <li>• Work experience</li>
+                    <li>• References</li>
+                    <li>• Availability</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <div class="w-12 h-12 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-search text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Browse Jobs</h3>
+                <p class="text-gray-600 text-center mb-4">Search and apply for domestic service positions that match your skills.</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Filter by location</li>
+                    <li>• Filter by job type</li>
+                    <li>• Filter by salary</li>
+                    <li>• Save job searches</li>
+                </ul>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg p-6 border border-gray-200">
+                <div class="w-12 h-12 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-handshake text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">Get Hired</h3>
+                <p class="text-gray-600 text-center mb-4">Connect with employers and secure your next position.</p>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• Direct employer contact</li>
+                    <li>• Interview scheduling</li>
+                    <li>• Contract negotiation</li>
+                    <li>• Career support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Platform?</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Benefits for both employers and job seekers</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Verified Professionals</h3>
+                <p class="text-gray-600 text-sm">All candidates are thoroughly vetted and background checked.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-certificate text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Certified Skills</h3>
+                <p class="text-gray-600 text-sm">All professionals have completed our certification programs.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-clock text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Quick Matching</h3>
+                <p class="text-gray-600 text-sm">Fast and efficient matching of employers with qualified candidates.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-100 text-primary-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-headset text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">24/7 Support</h3>
+                <p class="text-gray-600 text-sm">Round-the-clock support for both employers and job seekers.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-primary-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">Ready to Get Started?</h2>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">Join our platform and connect with the best domestic service professionals or find your next opportunity.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'accounts:register' %}" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center shadow-lg hover:shadow-xl">
+                <i class="fas fa-user-plus mr-2"></i>Join as Professional
+            </a>
+            <a href="{% url 'accounts:register' %}" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-building mr-2"></i>Join as Employer
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
