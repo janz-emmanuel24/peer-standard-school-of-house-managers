@@ -18,6 +18,7 @@ ENV/
 env.bak/
 venv.bak/
 .venv/
+.env/  # Virtual environment directory (not environment variables file)
 virtualenv/
 .conda/
 
@@ -37,13 +38,26 @@ db.sqlite3-journal
 # !*/migrations/__init__.py
 
 # Environment variables - CRITICAL: Never commit .env files!
+# Ignore .env files (but allow .env/ directory for virtual environments)
+/.env
+/.env.local
+/.env.*.local
+/.env.production
+/.env.development
+/.env.staging
+/*.env
+# Also ignore .env files in any subdirectory
+**/.env
+**/.env.local
+**/.env.production
+**/.env.development
+**/.env.staging
 .env
 .env.local
 .env.*.local
 .env.production
 .env.development
 .env.staging
-*.env
 
 # IDE
 .vscode/
