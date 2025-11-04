@@ -38,26 +38,16 @@ db.sqlite3-journal
 # !*/migrations/__init__.py
 
 # Environment variables - CRITICAL: Never commit .env files!
-# Ignore .env files (but allow .env/ directory for virtual environments)
-/.env
-/.env.local
-/.env.*.local
-/.env.production
-/.env.development
-/.env.staging
-/*.env
-# Also ignore .env files in any subdirectory
-**/.env
-**/.env.local
-**/.env.production
-**/.env.development
-**/.env.staging
+# Note: .env/ directory is already ignored above (virtual environment)
+# Ignore .env files (environment variable files, not directories)
 .env
+!.env/
 .env.local
-.env.*.local
 .env.production
 .env.development
 .env.staging
+.env.*.local
+*.env
 
 # IDE
 .vscode/
