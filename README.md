@@ -396,7 +396,106 @@ Key API areas include:
 - **Data Encryption**: Sensitive information protection
 - **Session Management**: Secure user sessions
 
-## Deployment
+## Docker Deployment
+
+This application is ready for Docker deployment with a complete production setup including PostgreSQL, Nginx reverse proxy, and Gunicorn.
+
+### Quick Start with Docker
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd Django
+   ```
+
+2. **Configure environment variables**
+   ```bash
+   cp env.production.example .env
+   nano .env  # Edit with your production values
+   ```
+
+3. **Deploy using the deployment script**
+   ```bash
+   ./deploy.sh build    # Build Docker images
+   ./deploy.sh up      # Start all services
+   ```
+
+4. **Create superuser**
+   ```bash
+   ./deploy.sh createsuperuser
+   ```
+
+### Docker Services
+
+The deployment includes:
+- **web**: Django application (Gunicorn)
+- **db**: PostgreSQL database
+- **nginx**: Reverse proxy and static file server
+
+### Deployment Commands
+
+```bash
+# Build images
+./deploy.sh build
+
+# Start services
+./deploy.sh up
+
+# Stop services
+./deploy.sh down
+
+# View logs
+./deploy.sh logs
+./deploy.sh logs web    # Specific service
+
+# Run migrations
+./deploy.sh migrate
+
+# Create superuser
+./deploy.sh createsuperuser
+
+# Update application
+./deploy.sh update
+
+# Database backup
+./deploy.sh backup
+
+# Check status
+./deploy.sh status
+```
+
+### Manual Docker Compose Commands
+
+```bash
+# Build and start
+docker-compose up -d --build
+
+# View logs
+docker-compose logs -f
+
+# Run migrations
+docker-compose exec web python manage.py migrate
+
+# Create superuser
+docker-compose exec web python manage.py createsuperuser
+
+# Stop services
+docker-compose down
+```
+
+### Production Configuration
+
+For production deployment:
+1. Set `DEBUG=False` in `.env`
+2. Generate a strong `SECRET_KEY`
+3. Configure `ALLOWED_HOSTS` with your domain
+4. Set up SSL certificates for HTTPS
+5. Configure proper database credentials
+6. Set up backup strategy
+
+See `DEPLOYMENT.md` for detailed deployment instructions.
+
+## Traditional Deployment
 
 ### Production Settings
 1. Set `DEBUG = False`
