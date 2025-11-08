@@ -10,6 +10,8 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-peer_school_password}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    expose:
+      - 5432
     ports:
       - "${DB_PORT:-5432}:5432"
     healthcheck:
@@ -22,14 +24,19 @@ services:
     restart: unless-stopped
 
   web:
+  # Django web application service
+  # Builds the Django web application from the Dockerfile
     build:
       context: .
       dockerfile: Dockerfile
     container_name: peer_school_web
-    command: gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 120 --access-logfile - --error-logfile - peer_standard_school.wsgi:application
+    command: /app/docker-entrypoint.sh
     volumes:
+      - .:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/media
+    expose:
+      - 8000
     ports:
       - "${WEB_PORT:-8000}:8000"
     env_file:
@@ -43,14 +50,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    networks:
-      - peer_school_network
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+
 
   nginx:
     image: nginx:alpine
@@ -71,11 +71,8 @@ services:
 
 volumes:
   postgres_data:
-    driver: local
   static_volume:
-    driver: local
-  media_volume:
-    driver: local
+
 
 networks:
   peer_school_network:
