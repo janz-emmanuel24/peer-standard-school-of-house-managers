@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:15-alpine
@@ -7,7 +5,7 @@ services:
     environment:
       POSTGRES_DB: ${DB_NAME:-peer_school_db}
       POSTGRES_USER: ${DB_USER:-peer_school_user}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-peer_school_password}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-1v5m85#JANs}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     expose:
@@ -50,19 +48,26 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
+    networks:
+      - peer_school_network
 
   nginx:
     image: nginx:alpine
     container_name: peer_school_nginx
     ports:
-      - "${NGINX_PORT:-80}:80"
+      - "${NGINX_PORT}:80"
       - "${NGINX_HTTPS_PORT:-443}:443"
     volumes:
-      - static_volume:/static:ro
-      - media_volume:/media:ro
+      # Serve static & media files
+      - static_volume:/app/staticfiles:ro
+      - media_volume:/app/media:ro
+
+      # Mount your nginx config
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
+
+      # Mount Let's Encrypt SSL certificates (read-only)
+      - /etc/letsencrypt/live/peer-standard.com:/etc/letsencrypt/live/peer-standard.com:ro
+      - /etc/letsencrypt/archive/peer-standard.com:/etc/letsencrypt/archive/peer-standard.com:ro
     depends_on:
       - web
     networks:
@@ -72,7 +77,7 @@ services:
 volumes:
   postgres_data:
   static_volume:
-
+  media_volume:
 
 networks:
   peer_school_network:
