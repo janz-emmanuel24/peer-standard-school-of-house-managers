@@ -51,12 +51,12 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="bg-primary-600 shadow-lg sticky top-0 z-50">
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b border-gray-200">
         <div class="w-full px-4 sm:px-6 lg:px-8">
             <div class="flex items-center h-16 w-full">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{% url 'home' %}" class="text-white text-xl font-bold flex items-center hover:text-primary-200 transition-colors">
+                    <a href="{% url 'home' %}" class="text-gray-900 text-xl font-bold flex items-center hover:opacity-80 transition-opacity">
                         <img src="{% static 'images/logo_png_format.png' %}" alt="Peer Standard Professional Workers" class="h-8 sm:h-10 w-auto max-w-[120px] sm:max-w-[150px] object-contain">
                     </a>
                 </div>
@@ -67,140 +67,140 @@
                     <div class="flex-1 flex justify-center">
                         <div class="hidden lg:flex lg:items-center lg:space-x-1">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'dashboard:home' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors">
+                        <a href="{% url 'dashboard:home' %}" class="{% if request.resolver_match.url_name == 'home' and request.resolver_match.namespace == 'dashboard' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors">
                             <i class="fas fa-tachometer-alt mr-1"></i>Dashboard
                         </a>
                             {% if user.user_type == 'admin' or user.user_type == 'instructor' %}
                                 <div class="relative group">
-                                    <button class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                    <button class="{% if request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                         <i class="fas fa-users mr-1"></i>Students
                                         <i class="fas fa-chevron-down ml-1 text-xs"></i>
                                     </button>
                                     <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                        <a href="{% url 'students:list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Students</a>
-                                        <a href="{% url 'students:enrollments' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Enrollments</a>
+                                        <a href="{% url 'students:list' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'list' and request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">All Students</a>
+                                        <a href="{% url 'students:enrollments' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'enrollments' and request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">Enrollments</a>
                                     </div>
                                 </div>
                                 <div class="relative group">
-                                    <button class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                    <button class="{% if request.resolver_match.namespace == 'courses' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                         <i class="fas fa-book mr-1"></i>Courses
                                         <i class="fas fa-chevron-down ml-1 text-xs"></i>
                                     </button>
                                     <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                        <a href="{% url 'courses:list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Courses</a>
-                                        <a href="{% url 'courses:create' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Add Course</a>
+                                        <a href="{% url 'courses:list' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'list' and request.resolver_match.namespace == 'courses' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">All Courses</a>
+                                        <a href="{% url 'courses:create' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'create' and request.resolver_match.namespace == 'courses' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">Add Course</a>
                                     </div>
                                 </div>
                             {% endif %}
                             {% if user.user_type == 'admin' %}
                                 <div class="relative group">
-                                    <button class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                    <button class="{% if request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                         <i class="fas fa-building mr-1"></i>Employers
                                         <i class="fas fa-chevron-down ml-1 text-xs"></i>
                                     </button>
                                     <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                        <a href="{% url 'employers:list' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">All Employers</a>
-                                        <a href="{% url 'employers:jobs' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Job Postings</a>
+                                        <a href="{% url 'employers:list' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'list' and request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">All Employers</a>
+                                        <a href="{% url 'employers:jobs' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'jobs' and request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">Job Postings</a>
                                     </div>
                                 </div>
                                 <div class="relative group">
-                                    <button class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                    <button class="{% if request.resolver_match.namespace == 'financials' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                         <i class="fas fa-dollar-sign mr-1"></i>Financials
                                         <i class="fas fa-chevron-down ml-1 text-xs"></i>
                                     </button>
                                     <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                        <a href="{% url 'financials:payments' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Payments</a>
-                                        <a href="{% url 'financials:reports' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reports</a>
+                                        <a href="{% url 'financials:payments' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'payments' and request.resolver_match.namespace == 'financials' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">Payments</a>
+                                        <a href="{% url 'financials:reports' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'reports' and request.resolver_match.namespace == 'financials' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">Reports</a>
                                     </div>
                                 </div>
                             {% endif %}
                             {% if user.user_type == 'student' %}
-                                <a href="{% url 'students:my_courses' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                <a href="{% url 'students:my_courses' %}" class="{% if request.resolver_match.url_name == 'my_courses' and request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                     <i class="fas fa-book-open mr-1"></i>My Courses
                                 </a>
-                                <a href="{% url 'students:certificates' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                <a href="{% url 'students:certificates' %}" class="{% if request.resolver_match.url_name == 'certificates' and request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                     <i class="fas fa-certificate mr-1"></i>Certificates
                                 </a>
                             {% endif %}
                             {% if user.user_type == 'employer' %}
-                                <a href="{% url 'employers:my_jobs' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                <a href="{% url 'employers:my_jobs' %}" class="{% if request.resolver_match.url_name == 'my_jobs' and request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                     <i class="fas fa-briefcase mr-1"></i>My Jobs
                                 </a>
-                                <a href="{% url 'employers:post_job' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                                <a href="{% url 'employers:post_job' %}" class="{% if request.resolver_match.url_name == 'post_job' and request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                     <i class="fas fa-plus mr-1"></i>Post Job
                                 </a>
                             {% endif %}
                     {% else %}
                         <!-- Public Navigation -->
-                        <a href="{% url 'home' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' and not request.resolver_match.namespace %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             Home
                         </a>
-                        <a href="{% url 'about' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             About Us
                         </a>
                         <!-- Our Services Dropdown -->
                         <div class="relative group">
-                            <button class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors">
+                            <button class="{% if request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors">
                                 Our Services
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
                             </button>
                             <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                <a href="{% url 'services:index' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-semibold border-b border-gray-200">All Services</a>
-                                <a href="{% url 'services:workers_training' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'services:index' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'index' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 font-semibold{% else %}text-gray-700 hover:bg-gray-100{% endif %} font-semibold border-b border-gray-200">All Services</a>
+                                <a href="{% url 'services:workers_training' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'workers_training' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-graduation-cap mr-2 text-primary-600"></i>Workers Training
                                 </a>
-                                <a href="{% url 'services:recruitment' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'services:recruitment' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'recruitment' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-user-tie mr-2 text-primary-600"></i>Recruitment
                                 </a>
-                                <a href="{% url 'services:workers_management' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'services:workers_management' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'workers_management' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-users-cog mr-2 text-primary-600"></i>Workers Management
                                 </a>
-                                <a href="{% url 'services:professional_cleaning' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'services:professional_cleaning' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'professional_cleaning' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-broom mr-2 text-primary-600"></i>Professional Cleaning
                                 </a>
-                                <a href="{% url 'services:elderly_care' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'services:elderly_care' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'elderly_care' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-heart mr-2 text-primary-600"></i>Elderly and Patient Care
                                 </a>
                             </div>
                         </div>
                         <!-- Our Clients Dropdown -->
                         <div class="relative group">
-                            <button class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors">
+                            <button class="{% if request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium flex items-center transition-colors">
                                 Our Clients
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
                             </button>
                             <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                                <a href="{% url 'clients:index' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 font-semibold border-b border-gray-200">All Clients</a>
-                                <a href="{% url 'clients:workers' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'clients:index' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'index' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 font-semibold{% else %}text-gray-700 hover:bg-gray-100{% endif %} font-semibold border-b border-gray-200">All Clients</a>
+                                <a href="{% url 'clients:workers' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'workers' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-hard-hat mr-2 text-primary-600"></i>Workers
                                 </a>
-                                <a href="{% url 'clients:house_owners' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'clients:house_owners' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'house_owners' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-home mr-2 text-primary-600"></i>House Owners
                                 </a>
-                                <a href="{% url 'clients:patients' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'clients:patients' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'patients' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-user-injured mr-2 text-primary-600"></i>Patients
                                 </a>
-                                <a href="{% url 'clients:organisations' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'clients:organisations' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'organisations' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-building mr-2 text-primary-600"></i>Organisations
                                 </a>
-                                <a href="{% url 'clients:companies' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'clients:companies' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'companies' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-briefcase mr-2 text-primary-600"></i>Companies
                                 </a>
-                                <a href="{% url 'clients:building_owners' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <a href="{% url 'clients:building_owners' %}" class="block px-4 py-2 text-sm {% if request.resolver_match.url_name == 'building_owners' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600{% else %}text-gray-700 hover:bg-gray-100{% endif %}">
                                     <i class="fas fa-city mr-2 text-primary-600"></i>Building Owners
                                 </a>
                             </div>
                         </div>
-                        <a href="{% url 'programs' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <a href="{% url 'programs' %}" class="{% if request.resolver_match.url_name == 'programs' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             Programs
                         </a>
-                        <a href="{% url 'admissions' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <a href="{% url 'admissions' %}" class="{% if request.resolver_match.url_name == 'admissions' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             Admissions
                         </a>
-                        <a href="{% url 'blog:index' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <a href="{% url 'blog:index' %}" class="{% if request.resolver_match.url_name == 'index' and request.resolver_match.namespace == 'blog' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             Blog
                         </a>
-                        <a href="{% url 'contact' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}bg-primary-50 text-primary-600 border-b-2 border-primary-600{% else %}text-gray-700 hover:text-primary-600{% endif %} px-3 py-2 rounded-md text-sm font-medium transition-colors">
                             Contact Us
                         </a>
                     {% endif %}
@@ -211,7 +211,7 @@
                     <div class="hidden lg:flex lg:items-center lg:space-x-4">
                     {% if user.is_authenticated %}
                         <div class="relative group">
-                            <button class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium flex items-center">
+                            <button class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium flex items-center">
                                 <i class="fas fa-user mr-1"></i>{{ user.get_full_name|default:user.username }}
                                 <i class="fas fa-chevron-down ml-1 text-xs"></i>
                             </button>
@@ -225,15 +225,15 @@
                             </div>
                         </div>
                     {% else %}
-                        <a href="{% url 'accounts:login' %}" class="text-white hover:text-primary-200 px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                        <a href="{% url 'accounts:register' %}" class="bg-primary-500 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium">Register</a>
+                        <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                        <a href="{% url 'accounts:register' %}" class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md text-sm font-medium">Register</a>
                     {% endif %}
                     </div>
                 </div>
                 
                 <!-- Mobile menu button -->
                 <div class="lg:hidden flex items-center">
-                    <button id="mobile-menu-button" class="text-white hover:text-primary-200 focus:outline-none focus:text-primary-200">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary-600 focus:outline-none focus:text-primary-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -241,108 +241,108 @@
         </div>
         <!-- Mobile menu -->
         <div id="mobile-menu" class="lg:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'dashboard:home' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'dashboard:home' %}" class="{% if request.resolver_match.url_name == 'home' and request.resolver_match.namespace == 'dashboard' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
                     </a>
                     {% if user.user_type == 'admin' or user.user_type == 'instructor' %}
-                        <a href="{% url 'students:list' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'students:list' %}" class="{% if request.resolver_match.url_name == 'list' and request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-users mr-2"></i>Students
                         </a>
-                        <a href="{% url 'courses:list' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'courses:list' %}" class="{% if request.resolver_match.url_name == 'list' and request.resolver_match.namespace == 'courses' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-book mr-2"></i>Courses
                         </a>
                     {% endif %}
                     {% if user.user_type == 'admin' %}
-                        <a href="{% url 'employers:list' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'employers:list' %}" class="{% if request.resolver_match.url_name == 'list' and request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-building mr-2"></i>Employers
                         </a>
-                        <a href="{% url 'financials:payments' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'financials:payments' %}" class="{% if request.resolver_match.namespace == 'financials' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-dollar-sign mr-2"></i>Financials
                         </a>
                     {% endif %}
                     {% if user.user_type == 'student' %}
-                        <a href="{% url 'students:my_courses' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'students:my_courses' %}" class="{% if request.resolver_match.url_name == 'my_courses' and request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-book-open mr-2"></i>My Courses
                         </a>
-                        <a href="{% url 'students:certificates' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'students:certificates' %}" class="{% if request.resolver_match.url_name == 'certificates' and request.resolver_match.namespace == 'students' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-certificate mr-2"></i>Certificates
                         </a>
                     {% endif %}
                     {% if user.user_type == 'employer' %}
-                        <a href="{% url 'employers:my_jobs' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'employers:my_jobs' %}" class="{% if request.resolver_match.url_name == 'my_jobs' and request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-briefcase mr-2"></i>My Jobs
                         </a>
-                        <a href="{% url 'employers:post_job' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                        <a href="{% url 'employers:post_job' %}" class="{% if request.resolver_match.url_name == 'post_job' and request.resolver_match.namespace == 'employers' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                             <i class="fas fa-plus mr-2"></i>Post Job
                         </a>
                     {% endif %}
-                    <hr class="border-primary-600">
-                    <a href="{% url 'accounts:profile' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <hr class="border-gray-200">
+                    <a href="{% url 'accounts:profile' %}" class="text-gray-700 hover:text-primary-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-user mr-2"></i>Profile
                     </a>
-                    <a href="{% url 'accounts:background_check' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'accounts:background_check' %}" class="text-gray-700 hover:text-primary-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-shield-alt mr-2"></i>Background Check
                     </a>
-                    <a href="{% url 'api_docs' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'api_docs' %}" class="text-gray-700 hover:text-primary-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-code mr-2"></i>API Documentation
                     </a>
-                    <hr class="border-primary-600">
-                    <a href="{% url 'accounts:logout' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <hr class="border-gray-200">
+                    <a href="{% url 'accounts:logout' %}" class="text-gray-700 hover:text-primary-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-sign-out-alt mr-2"></i>Logout
                     </a>
                 {% else %}
-                    <a href="{% url 'home' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' and not request.resolver_match.namespace %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-home mr-2"></i>Home
                     </a>
-                    <a href="{% url 'about' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-info-circle mr-2"></i>About Us
                     </a>
                     <div class="px-3 py-2">
-                        <p class="text-white font-semibold mb-2 flex items-center">
+                        <p class="text-gray-900 font-semibold mb-2 flex items-center">
                             <i class="fas fa-cogs mr-2"></i>Our Services
                         </p>
                         <div class="pl-6 space-y-1">
-                            <a href="{% url 'services:index' %}" class="text-primary-200 hover:text-white block text-sm">All Services</a>
-                            <a href="{% url 'services:workers_training' %}" class="text-primary-200 hover:text-white block text-sm">Workers Training</a>
-                            <a href="{% url 'services:recruitment' %}" class="text-primary-200 hover:text-white block text-sm">Recruitment</a>
-                            <a href="{% url 'services:workers_management' %}" class="text-primary-200 hover:text-white block text-sm">Workers Management</a>
-                            <a href="{% url 'services:professional_cleaning' %}" class="text-primary-200 hover:text-white block text-sm">Professional Cleaning</a>
-                            <a href="{% url 'services:elderly_care' %}" class="text-primary-200 hover:text-white block text-sm">Elderly and Patient Care</a>
+                            <a href="{% url 'services:index' %}" class="{% if request.resolver_match.url_name == 'index' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">All Services</a>
+                            <a href="{% url 'services:workers_training' %}" class="{% if request.resolver_match.url_name == 'workers_training' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Workers Training</a>
+                            <a href="{% url 'services:recruitment' %}" class="{% if request.resolver_match.url_name == 'recruitment' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Recruitment</a>
+                            <a href="{% url 'services:workers_management' %}" class="{% if request.resolver_match.url_name == 'workers_management' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Workers Management</a>
+                            <a href="{% url 'services:professional_cleaning' %}" class="{% if request.resolver_match.url_name == 'professional_cleaning' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Professional Cleaning</a>
+                            <a href="{% url 'services:elderly_care' %}" class="{% if request.resolver_match.url_name == 'elderly_care' and request.resolver_match.namespace == 'services' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Elderly and Patient Care</a>
                         </div>
                     </div>
                     <div class="px-3 py-2">
-                        <p class="text-white font-semibold mb-2 flex items-center">
+                        <p class="text-gray-900 font-semibold mb-2 flex items-center">
                             <i class="fas fa-users mr-2"></i>Our Clients
                         </p>
                         <div class="pl-6 space-y-1">
-                            <a href="{% url 'clients:index' %}" class="text-primary-200 hover:text-white block text-sm">All Clients</a>
-                            <a href="{% url 'clients:workers' %}" class="text-primary-200 hover:text-white block text-sm">Workers</a>
-                            <a href="{% url 'clients:house_owners' %}" class="text-primary-200 hover:text-white block text-sm">House Owners</a>
-                            <a href="{% url 'clients:patients' %}" class="text-primary-200 hover:text-white block text-sm">Patients</a>
-                            <a href="{% url 'clients:organisations' %}" class="text-primary-200 hover:text-white block text-sm">Organisations</a>
-                            <a href="{% url 'clients:companies' %}" class="text-primary-200 hover:text-white block text-sm">Companies</a>
-                            <a href="{% url 'clients:building_owners' %}" class="text-primary-200 hover:text-white block text-sm">Building Owners</a>
+                            <a href="{% url 'clients:index' %}" class="{% if request.resolver_match.url_name == 'index' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">All Clients</a>
+                            <a href="{% url 'clients:workers' %}" class="{% if request.resolver_match.url_name == 'workers' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Workers</a>
+                            <a href="{% url 'clients:house_owners' %}" class="{% if request.resolver_match.url_name == 'house_owners' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">House Owners</a>
+                            <a href="{% url 'clients:patients' %}" class="{% if request.resolver_match.url_name == 'patients' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Patients</a>
+                            <a href="{% url 'clients:organisations' %}" class="{% if request.resolver_match.url_name == 'organisations' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Organisations</a>
+                            <a href="{% url 'clients:companies' %}" class="{% if request.resolver_match.url_name == 'companies' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Companies</a>
+                            <a href="{% url 'clients:building_owners' %}" class="{% if request.resolver_match.url_name == 'building_owners' and request.resolver_match.namespace == 'clients' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-600 hover:text-primary-600{% endif %} block text-sm px-2 py-1 rounded">Building Owners</a>
                         </div>
                     </div>
-                    <a href="{% url 'programs' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'programs' %}" class="{% if request.resolver_match.url_name == 'programs' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-graduation-cap mr-2"></i>Programs
                     </a>
-                    <a href="{% url 'admissions' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'admissions' %}" class="{% if request.resolver_match.url_name == 'admissions' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-user-plus mr-2"></i>Admissions
                     </a>
-                    <a href="{% url 'blog:index' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'blog:index' %}" class="{% if request.resolver_match.url_name == 'index' and request.resolver_match.namespace == 'blog' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-blog mr-2"></i>Blog
                     </a>
-                    <a href="{% url 'contact' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}bg-primary-50 text-primary-600 border-l-4 border-primary-600{% else %}text-gray-700 hover:text-primary-600 hover:bg-gray-50{% endif %} block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-envelope mr-2"></i>Contact Us
                     </a>
-                    <hr class="border-primary-600">
-                    <a href="{% url 'accounts:login' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <hr class="border-gray-200">
+                    <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-primary-600 hover:bg-gray-50 block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-sign-in-alt mr-2"></i>Login
                     </a>
-                    <a href="{% url 'accounts:register' %}" class="text-white hover:text-primary-200 block px-3 py-2 rounded-md text-base font-medium flex items-center">
+                    <a href="{% url 'accounts:register' %}" class="bg-primary-600 hover:bg-primary-700 text-white block px-3 py-2 rounded-md text-base font-medium flex items-center">
                         <i class="fas fa-user-plus mr-2"></i>Register
                     </a>
                 {% endif %}
@@ -389,28 +389,28 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white">
+    <footer style="background-color: #91A3B0;" class="text-white">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                     <a href="{% url 'home' %}" class="inline-block mb-4">
                         <img src="{% static 'images/logo_png_format.png' %}" alt="Peer Standard Professional Workers" class="h-12 w-auto object-contain">
                     </a>
-                    <p class="text-gray-300">Professional training for domestic services excellence.</p>
+                    <p class="text-white font-medium">Building Professional Excellence in Home Care</p>
                 </div>
                 <div>
-                    <h5 class="text-lg font-semibold mb-4">Contact Information</h5>
-                    <p class="text-gray-300 flex items-center mb-2">
-                        <i class="fas fa-phone mr-2"></i>(+256) 751-0031-55
+                    <h5 class="text-lg font-semibold mb-4 text-white">Contact Information</h5>
+                    <p class="text-white flex items-center mb-2 font-medium">
+                        <i class="fas fa-phone mr-2"></i>(+256) 751-0031-58 - (+256) 751-0031-58
                     </p>
-                    <p class="text-gray-300 flex items-center">
+                    <p class="text-white flex items-center font-medium">
                         <i class="fas fa-envelope mr-2"></i>peerstandard@gmail.com
                     </p>
                 </div>
             </div>
-            <hr class="border-gray-700 my-8">
+            <hr class="border-white border-opacity-30 my-8">
             <div class="text-center">
-                <p class="text-gray-300">&copy; 2025 Peer Standard Professional Workers. All rights reserved.</p>
+                <p class="text-white font-medium">&copy; 2025 Peer Standard Professional Workers. All rights reserved.</p>
             </div>
         </div>
     </footer>

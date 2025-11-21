@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-xsqq7ur7_ca+_ny21!w98
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='http://localhost', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='http://localhost:8000,http://127.0.0.1:8000', cast=Csv())
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = config(
