@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Services - Peer Standard Professional Workers{% endblock %}
+
+{% block content %}
+{% include 'partials/hero_section.html' with hero_title="Our Services" hero_subtitle="Comprehensive professional services tailored to meet your needs" %}
+
+<!-- Services Overview -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">What We Offer</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Professional services designed to support workers, clients, and organizations</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Workers Training -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Workers Training</h3>
+                <p class="text-gray-600 mb-4 text-center">Comprehensive training programs to develop skilled professionals</p>
+                <a href="{% url 'services:workers_training' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Recruitment -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-user-tie text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Recruitment</h3>
+                <p class="text-gray-600 mb-4 text-center">Connect qualified workers with the right opportunities</p>
+                <a href="{% url 'services:recruitment' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Workers Management -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-users-cog text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Workers Management</h3>
+                <p class="text-gray-600 mb-4 text-center">Efficient management solutions for your workforce</p>
+                <a href="{% url 'services:workers_management' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Professional Cleaning -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-yellow-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-broom text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Professional Cleaning</h3>
+                <p class="text-gray-600 mb-4 text-center">Expert cleaning services for homes and businesses</p>
+                <a href="{% url 'services:professional_cleaning' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Elderly and Patient Care -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-pink-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-heart text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Elderly and Patient Care</h3>
+                <p class="text-gray-600 mb-4 text-center">Compassionate care services for elderly and patients</p>
+                <a href="{% url 'services:elderly_care' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'partials/cta_section.html' with cta_title="Ready to Get Started?" cta_subtitle="Contact us today to learn more about our comprehensive services" %}
+{% endblock %}
+

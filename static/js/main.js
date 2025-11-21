@@ -1,4 +1,4 @@
-// Main JavaScript for Peer Standard School of Maids
+// Main JavaScript for Peer Standard Professional Workers
 
 // API Configuration
 const API_BASE_URL = '/api';

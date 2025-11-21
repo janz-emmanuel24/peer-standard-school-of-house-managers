@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Our Clients - Peer Standard Professional Workers{% endblock %}
+
+{% block content %}
+{% include 'partials/hero_section.html' with hero_title="Our Clients" hero_subtitle="Serving diverse clients with professional excellence" %}
+
+<!-- Clients Overview -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Who We Serve</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">We provide professional services to a wide range of clients, from individual workers to large organizations</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Workers -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-hard-hat text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Workers</h3>
+                <p class="text-gray-600 mb-4 text-center">Professional development and job opportunities</p>
+                <a href="{% url 'clients:workers' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- House Owners -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-home text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">House Owners</h3>
+                <p class="text-gray-600 mb-4 text-center">Domestic services for your home</p>
+                <a href="{% url 'clients:house_owners' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Patients -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-pink-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-user-injured text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Patients</h3>
+                <p class="text-gray-600 mb-4 text-center">Compassionate care services</p>
+                <a href="{% url 'clients:patients' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Organisations -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-building text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Organisations</h3>
+                <p class="text-gray-600 mb-4 text-center">Workforce solutions for organizations</p>
+                <a href="{% url 'clients:organisations' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Companies -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-yellow-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Companies</h3>
+                <p class="text-gray-600 mb-4 text-center">Business solutions and services</p>
+                <a href="{% url 'clients:companies' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Building Owners -->
+            <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 border border-gray-100 hover:border-primary-200">
+                <div class="w-16 h-16 bg-purple-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-city text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">Building Owners</h3>
+                <p class="text-gray-600 mb-4 text-center">Property management services</p>
+                <a href="{% url 'clients:building_owners' %}" class="block text-center text-primary-600 hover:text-primary-700 font-medium">
+                    Learn More <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'partials/cta_section.html' with cta_title="Become Our Client" cta_subtitle="Join our network of satisfied clients today" %}
+{% endblock %}
+

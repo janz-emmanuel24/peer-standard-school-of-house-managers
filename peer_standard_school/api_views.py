@@ -11,7 +11,7 @@ def api_root(request, format=None):
     API Root - Overview of all available endpoints
     """
     return Response({
-        'message': 'Welcome to Peer Standard School of Maids API',
+        'message': 'Welcome to Peer Standard Professional Workers API',
         'version': '1.0',
         'endpoints': {
             'authentication': {

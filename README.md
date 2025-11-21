@@ -1,4 +1,4 @@
-# Peer Standard School of Maids
+# Peer Standard Professional Workers
 
 A comprehensive Django web application for managing a professional training school for domestic services. This system provides complete management of students, courses, employers, certifications, and financial operations.
 
@@ -556,4 +556,4 @@ For support and questions:
 
 ---
 
-**Peer Standard School of Maids** - Professional training for domestic excellence.
+**Peer Standard Professional Workers** - Professional training for domestic excellence.

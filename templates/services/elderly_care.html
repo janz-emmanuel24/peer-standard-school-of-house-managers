@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Elderly and Patient Care - Peer Standard Professional Workers{% endblock %}
+
+{% block content %}
+{% include 'partials/hero_section.html' with hero_title="Elderly and Patient Care" hero_subtitle="Compassionate care services for elderly and patients" %}
+
+<!-- Care Services -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Compassionate Care Services</h2>
+                <p class="text-lg text-gray-600 mb-6">Our elderly and patient care services provide compassionate, professional support for those in need. Our trained caregivers offer personalized care with dignity and respect.</p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Certified and trained caregivers</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Personalized care plans</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">24/7 care support available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary-50 rounded-lg p-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Care Services</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center">
+                        <i class="fas fa-heart text-primary-600 mr-2"></i>
+                        Personal care assistance
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-utensils text-primary-600 mr-2"></i>
+                        Meal preparation and nutrition
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-pills text-primary-600 mr-2"></i>
+                        Medication management
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-hands-helping text-primary-600 mr-2"></i>
+                        Companionship and support
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Care Features -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Care Services?</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-pink-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-user-md text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Trained Caregivers</h3>
+                <p class="text-gray-600 text-sm">Certified and experienced professionals</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-red-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-heartbeat text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Health Monitoring</h3>
+                <p class="text-gray-600 text-sm">Regular health check-ups</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-clock text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">24/7 Availability</h3>
+                <p class="text-gray-600 text-sm">Round-the-clock care support</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Safe & Secure</h3>
+                <p class="text-gray-600 text-sm">Background-checked caregivers</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'partials/cta_section.html' with cta_title="Get Quality Care Services" cta_subtitle="Contact us to arrange compassionate care for your loved ones" %}
+{% endblock %}
+

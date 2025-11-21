@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Patients - Our Clients - Peer Standard Professional Workers{% endblock %}
+
+{% block content %}
+{% include 'partials/hero_section.html' with hero_title="Patients" hero_subtitle="Compassionate care services for patients" %}
+
+<!-- Patients Services -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Services for Patients</h2>
+                <p class="text-lg text-gray-600 mb-6">We provide compassionate and professional care services for patients, ensuring comfort, safety, and quality care in their time of need.</p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Certified patient care professionals</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Personalized care plans</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">24/7 care support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary-50 rounded-lg p-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Care Services</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center">
+                        <i class="fas fa-heart text-primary-600 mr-2"></i>
+                        Personal care assistance
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-pills text-primary-600 mr-2"></i>
+                        Medication management
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-utensils text-primary-600 mr-2"></i>
+                        Nutrition support
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-hands-helping text-primary-600 mr-2"></i>
+                        Emotional support
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'partials/cta_section.html' with cta_title="Get Quality Patient Care" cta_subtitle="Contact us for compassionate patient care services" %}
+{% endblock %}
+

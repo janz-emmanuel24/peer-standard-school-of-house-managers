@@ -1,0 +1,19 @@
+{% load static %}
+<!-- CTA Section Partial -->
+<section class="py-20 bg-primary-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-6">{{ cta_title|default:"Ready to Get Started?" }}</h2>
+        <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">{{ cta_subtitle|default:"Contact us today to learn more about our services." }}</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'contact' %}" class="bg-white text-primary-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center shadow-lg hover:shadow-xl">
+                <i class="fas fa-envelope mr-2"></i>Contact Us
+            </a>
+            {% if cta_secondary_url %}
+            <a href="{{ cta_secondary_url }}" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-4 rounded-lg font-semibold text-lg transition-colors duration-200 flex items-center justify-center">
+                <i class="fas fa-arrow-right mr-2"></i>{{ cta_secondary_text|default:"Learn More" }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+

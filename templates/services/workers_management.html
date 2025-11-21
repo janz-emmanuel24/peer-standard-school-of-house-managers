@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Workers Management - Peer Standard Professional Workers{% endblock %}
+
+{% block content %}
+{% include 'partials/hero_section.html' with hero_title="Workers Management" hero_subtitle="Efficient management solutions for your workforce" %}
+
+<!-- Management Services -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Comprehensive Workforce Management</h2>
+                <p class="text-lg text-gray-600 mb-6">Our workers management services help organizations efficiently manage their workforce, from scheduling to performance tracking and professional development.</p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Workforce scheduling and coordination</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Performance monitoring and evaluation</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Professional development programs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary-50 rounded-lg p-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Management Features</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center">
+                        <i class="fas fa-calendar-alt text-primary-600 mr-2"></i>
+                        Scheduling and time management
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-chart-line text-primary-600 mr-2"></i>
+                        Performance analytics
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-graduation-cap text-primary-600 mr-2"></i>
+                        Training and development
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-comments text-primary-600 mr-2"></i>
+                        Communication tools
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Management Solutions -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Management Solutions</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-calendar-check text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Scheduling</h3>
+                <p class="text-gray-600 text-sm">Efficient workforce scheduling</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-tasks text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Task Management</h3>
+                <p class="text-gray-600 text-sm">Assign and track tasks</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-chart-bar text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Analytics</h3>
+                <p class="text-gray-600 text-sm">Performance insights</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-yellow-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-headset text-2xl"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-900 mb-2">Support</h3>
+                <p class="text-gray-600 text-sm">24/7 management support</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'partials/cta_section.html' with cta_title="Streamline Your Workforce Management" cta_subtitle="Contact us to learn how we can help manage your workers efficiently" %}
+{% endblock %}
+

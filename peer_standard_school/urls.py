@@ -29,8 +29,17 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('programs/', TemplateView.as_view(template_name='programs.html'), name='programs'),
     path('admissions/', TemplateView.as_view(template_name='admissions.html'), name='admissions'),
-    path('recruitment/', TemplateView.as_view(template_name='recruitment.html'), name='recruitment'),
     path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact'),
+    
+    # Services URLs
+    path('services/', include('peer_standard_school.services_urls')),
+    
+    # Clients URLs
+    path('clients/', include('peer_standard_school.clients_urls')),
+    
+    # Blog URLs
+    path('blog/', include('peer_standard_school.blog_urls')),
+    
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('students/', include('students.urls')),

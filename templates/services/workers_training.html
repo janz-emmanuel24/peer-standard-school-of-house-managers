@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Workers Training - Peer Standard Professional Workers{% endblock %}
+
+{% block content %}
+{% include 'partials/hero_section.html' with hero_title="Workers Training" hero_subtitle="Comprehensive training programs to develop skilled professionals" %}
+
+<!-- Training Programs -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Professional Training Programs</h2>
+                <p class="text-lg text-gray-600 mb-6">We offer comprehensive training programs designed to develop skilled professionals ready for the workforce. Our curriculum covers essential skills, industry best practices, and hands-on experience.</p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Certified training programs</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Hands-on practical experience</p>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-4 mt-1">
+                            <i class="fas fa-check text-primary-600"></i>
+                        </div>
+                        <p class="text-gray-600">Industry-recognized certifications</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-primary-50 rounded-lg p-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Training Areas</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        Domestic services and household management
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        Professional cleaning techniques
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        Elderly and patient care
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-2"></i>
+                        Communication and customer service
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Benefits Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Training?</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-primary-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-certificate text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Certified Programs</h3>
+                <p class="text-gray-600">Industry-recognized certifications upon completion</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-users text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Expert Instructors</h3>
+                <p class="text-gray-600">Learn from experienced professionals</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <i class="fas fa-briefcase text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Job Placement</h3>
+                <p class="text-gray-600">Assistance with job placement after training</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'partials/cta_section.html' with cta_title="Start Your Training Journey" cta_subtitle="Enroll in our comprehensive training programs today" cta_secondary_url="/admissions/" cta_secondary_text="View Admissions" %}
+{% endblock %}
+
