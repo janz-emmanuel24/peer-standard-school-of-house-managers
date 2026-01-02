@@ -15,13 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .api_views import api_root
-from .views import home_view
+from .views import home_view, robots_txt
+from .sitemaps import StaticViewSitemap, ServicesSitemap, ClientsSitemap
+
+# Sitemap dictionary
+sitemaps = {
+    'static': StaticViewSitemap,
+    'services': ServicesSitemap,
+    'clients': ClientsSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -61,6 +70,10 @@ urlpatterns = [
     # JWT Token URLs
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    
+    # SEO URLs
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', robots_txt, name='robots_txt'),
 ]
 
 # Serve media files during development

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.views.decorators.http import require_http_methods
 from courses.models import Course, CourseCategory
 
 
@@ -30,3 +32,32 @@ def home_view(request):
     }
     
     return render(request, 'home.html', context)
+
+
+@require_http_methods(["GET"])
+def robots_txt(request):
+    """Serve robots.txt file"""
+    robots_content = """# robots.txt for Peer Standard Professional Workers
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /accounts/
+Disallow: /students/
+Disallow: /courses/
+Disallow: /employers/
+Disallow: /certifications/
+Disallow: /financials/
+
+# Sitemap
+Sitemap: {protocol}://{domain}/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1
+""".format(
+        protocol=request.scheme,
+        domain=request.get_host()
+    )
+    return HttpResponse(robots_content, content_type='text/plain')

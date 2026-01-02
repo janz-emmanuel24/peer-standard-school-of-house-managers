@@ -1,11 +1,65 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ seo.site_language|default:'en' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Peer Standard Professional Workers{% endblock %}</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>{% block title %}{{ seo.title|default:seo.site_name }}{% endblock %}</title>
+    <meta name="title" content="{% block meta_title %}{{ seo.title|default:seo.site_name }}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{{ seo.description|default:seo.site_description }}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{{ seo.keywords|default:seo.site_keywords }}{% endblock %}">
+    <meta name="author" content="{{ seo.site_author }}">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="{{ seo.site_language|default:'English' }}">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{% block canonical_url %}{{ seo.canonical_url }}{% endblock %}">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="{% static 'images/logo_png_format.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/logo_png_format.png' %}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% block og_url %}{{ seo.canonical_url }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ seo.title|default:seo.site_name }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ seo.description|default:seo.site_description }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ seo.site_image }}{% endblock %}">
+    <meta property="og:site_name" content="{{ seo.site_name }}">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{% block twitter_url %}{{ seo.canonical_url }}{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ seo.title|default:seo.site_name }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ seo.description|default:seo.site_description }}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ seo.site_image }}{% endblock %}">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{% block schema_type %}Organization{% endblock %}",
+        "name": "{{ seo.site_name }}",
+        "url": "{{ seo.site_url }}",
+        "logo": "{{ seo.site_image }}",
+        "description": "{{ seo.site_description }}",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "UG"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+256-751-0031-55",
+            "contactType": "Customer Service",
+            "email": "peerstandard@gmail.com"
+        },
+        "sameAs": []
+    }
+    </script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -394,7 +448,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                     <a href="{% url 'home' %}" class="inline-block mb-4">
-                        <img src="{% static 'images/logo_png_format.png' %}" alt="Peer Standard Professional Workers" class="h-12 w-auto object-contain">
+                        <img src="{% static 'images/logo_png_format.png' %}" alt="Peer Standard Professional Workers - Professional Training & Services" class="h-12 w-auto object-contain" loading="lazy">
                     </a>
                     <p class="text-white font-medium">Building Professional Excellence in Home Care</p>
                 </div>
