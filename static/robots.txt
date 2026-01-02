@@ -13,7 +13,7 @@ Disallow: /certifications/
 Disallow: /financials/
 
 # Sitemap
-Sitemap: https://www.peerstandard.com/sitemap.xml
+Sitemap: https://www.peer-standard.com/sitemap.xml
 
 # Crawl-delay (optional, adjust as needed)
 Crawl-delay: 1
